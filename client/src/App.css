@@ -1,0 +1,805 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --primary: #0a0a5d;
+  --primary2: #f4bc33;
+  --secondary1: #124e73;
+  --secondary2: #2b4150;
+  --font1: "Source Sans 3", sans-serif;
+  --font2: "MuseoModerno", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
+  /* font-family: 'MuseoModerno', sans-serif; */
+}
+
+/* ======================== Scroll Bar ================*/
+@layer utilities {
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--secondary2);
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #2b415038;
+    border-radius: 8px;
+  }
+}
+
+/*=================== Color Template =====================*/
+.color-2nd-1 {
+  color: var(--secondary1);
+}
+.color-2nd-2 {
+  color: var(--secondary2);
+}
+.bg-2nd-1 {
+  background-color: var(--secondary1);
+}
+.bg-2nd-2 {
+  background-color: var(--secondary2);
+}
+
+/*============================================================== Log in ==================================================*/
+.login-container {
+  .flex {
+    height: 100vh;
+  }
+
+  .bg-side {
+    background-image: url(./images/assets/login-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    @apply basis-6/12 lg:block hidden;
+  }
+
+  .form-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @apply lg:basis-6/12 basis-full text-center;
+  }
+
+  .title-login {
+    font-family: var(--font2);
+    color: var(--primary);
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    font-size: 4.9rem;
+    margin-top: 2rem;
+    @apply max-sm:text-4xl;
+  }
+
+  .login-input {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    height: 2rem;
+    border: 2px solid var(--primary);
+    border-radius: 22px;
+    height: 2.8rem;
+    width: 85%;
+    padding-left: 0.85rem;
+
+    &::placeholder {
+      font-weight: 900;
+      color: rgba(71, 65, 65, 0.719);
+    }
+  }
+
+  .btn {
+    font-family: var(--font2);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    width: 85%;
+    height: 2.7rem;
+    background-color: var(--primary);
+    color: rgb(211, 206, 206);
+    border-radius: 22px;
+
+    &:hover {
+      @apply transition ease-in-out scale-105;
+      background-color: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    &:disabled {
+      background-color: rgba(30, 1, 112, 0.603);
+      text-decoration: line-through 3px rgba(30, 1, 112, 0.603);
+    }
+  }
+
+  .icons {
+    color: var(--primary);
+    width: 15%;
+    @apply h-8 inline;
+  }
+
+  .create-acc {
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-decoration: underline;
+    cursor: pointer;
+    @apply md:text-end text-center mt-4;
+  }
+
+  .error-m {
+    color: red;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-left: 15%;
+  }
+}
+
+/*============================================================== Sign Up ==================================================*/
+.signup-container {
+  .flex {
+    height: 100vh;
+  }
+
+  .bg-side {
+    background-image: url(./images/assets/signup-bg.jpg);
+    background-size: cover;
+    @apply basis-7/12 lg:block hidden;
+  }
+
+  .form-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @apply lg:basis-5/12 basis-full w-full;
+  }
+
+  .signup-title {
+    font-family: var(--font2);
+    color: var(--primary2);
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    font-size: 4.3rem;
+    margin-bottom: 4rem;
+  }
+
+  .icons {
+    color: var(--primary2);
+    width: 15%;
+    @apply h-8 inline;
+  }
+
+  label {
+    display: inline-block;
+    width: 85%;
+    height: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: white;
+    background-color: var(--primary2);
+    border-radius: 8px;
+    padding-top: 0.5rem;
+    padding-left: 0.8rem;
+
+    @apply xl:w-5/12;
+  }
+
+  .signup-input {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    height: 2rem;
+    border: 2px solid var(--primary2);
+    border-radius: 16px;
+    height: 2.8rem;
+    width: 85%;
+    padding-left: 0.8rem;
+
+    &::placeholder {
+      font-weight: 900;
+      color: rgba(71, 65, 65, 0.719);
+    }
+
+    &:focus {
+      outline: 0;
+      @apply shadow-md shadow-orange-200;
+    }
+  }
+
+  .btn {
+    font-family: var(--font2);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    width: 85%;
+    height: 2.7rem;
+    background-color: var(--primary2);
+    color: rgb(255, 255, 255);
+    border-radius: 16px;
+    cursor: pointer;
+
+    &:hover {
+      @apply transition ease-in-out scale-105;
+      background-color: white;
+      color: var(--primary2);
+      border: 2px solid var(--primary2);
+    }
+    &:disabled {
+      color: white;
+      background-color: #8b6f28;
+      text-decoration: line-through 3px #8b6f28;
+    }
+  }
+
+  .otp-input {
+    width: 50% !important;
+  }
+  .otp-btn {
+    font-family: var(--font2);
+    font-weight: 800;
+    color: var(--primary2);
+    padding-left: 0.3rem;
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: center;
+
+    @apply hover:text-orange-400;
+  }
+
+  .to-login {
+    color: var(--primary2);
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-decoration: underline;
+    cursor: pointer;
+    @apply md:text-end text-center mt-4;
+  }
+
+  .error-m {
+    color: red;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-left: 15%;
+  }
+
+  .loading-m {
+    color: var(--primary2);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-left: 15%;
+  }
+}
+
+/*============================================================== Navbar ==================================================*/
+.my-navbar {
+  position: relative;
+  font-family: var(--font2);
+
+  nav {
+    background-color: white;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+  }
+  nav ul {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  nav li {
+    height: 50px;
+    &:first-child {
+      margin-right: auto;
+    }
+  }
+  nav span {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    height: 100%;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    margin-right: 0.4rem;
+    border-radius: 12px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .sidebar li,
+  .sidebar a {
+    width: 100%;
+  }
+  .menu-button {
+    display: none;
+  }
+  .icons {
+    font-size: 1.6rem;
+  }
+  @media (max-width: 1124px) {
+    .hideOnMobile {
+      display: none;
+    }
+    .menu-button {
+      display: block;
+    }
+  }
+  @media (max-width: 400px) {
+    .sidebar {
+      width: 100%;
+    }
+  }
+}
+
+/*============================================================== User Products ==================================================*/
+.product-container {
+  .search-nav {
+    display: flex;
+    height: 5vh;
+    background-color: var(--secondary1);
+
+    @apply lg:block justify-center;
+  }
+  .search-bar {
+    height: 5vh;
+    background-color: #e2e2e2;
+    border-radius: 8px;
+    letter-spacing: 1.2px;
+    padding-left: 1.7rem;
+    @apply lg:ms-40 lg:w-3/12 ms-0 w-8/12;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  .items-container {
+    margin-top: 3vh;
+
+    @apply lg:mx-28 mx-2 grid xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4;
+  }
+
+  .banner {
+    background-size: cover;
+    height: 20vh;
+    @apply w-full;
+  }
+}
+
+/*============================================================== User Order Product ==================================================*/
+.order-product-container {
+  display: flex;
+  color: var(--secondary1);
+  @apply flex-wrap justify-center;
+
+  .brake-row {
+    border: 2px solid var(--secondary1);
+    border-radius: 3px;
+  }
+
+  .product-title {
+    font-family: var(--font2);
+    font-size: 1.75rem;
+    line-height: 2.3rem;
+    letter-spacing: 1px;
+    @apply font-semibold mb-2 max-sm:text-xl;
+  }
+
+  .product-price {
+    font-size: 2rem;
+    line-height: 2rem;
+    @apply mt-2 font-semibold max-sm:text-xl;
+  }
+
+  .product-description {
+    font-family: var(--font1);
+    line-height: 1.6rem;
+    @apply text-justify mt-5 h-32 overflow-auto max-sm:text-sm;
+  }
+
+  .product-quantity {
+    .icon {
+      font-size: 1.3rem;
+      @apply inline border w-8 cursor-pointer max-sm:text-sm;
+    }
+  }
+
+  .order-actions {
+    .button {
+      background-color: var(--secondary1);
+      color: white;
+      letter-spacing: 1px;
+      height: 2.5rem;
+      width: 8.5rem;
+      border-radius: 10px;
+      @apply max-sm:text-sm max-sm:w-20;
+    }
+  }
+
+  .badges {
+    font-family: var(--font1);
+    font-size: 0.9rem;
+    @apply basis-1/3;
+  }
+}
+
+/*============================================================== User Cart ==================================================*/
+.cart-container {
+  display: flex;
+  @apply flex-wrap justify-center;
+
+  .product-container {
+    height: 80vh;
+    @apply lg:basis-7/12 basis-11/12 mt-7 overflow-auto;
+  }
+
+  .payment-container {
+    background-color: rgb(245, 245, 245);
+    font-weight: 500;
+    letter-spacing: 1px;
+    @apply lg:basis-7/12 basis-11/12 lg:text-xl text-sm  mt-4 rounded-lg h-16 lg:ps-5 ps-2;
+
+    .button {
+      background-color: var(--secondary1);
+      @apply h-11 text-white rounded-lg px-3;
+    }
+  }
+}
+
+/*============================================================== About Us ==================================================*/
+.about-container {
+  @apply flex-wrap justify-center;
+  color: var(--secondary1);
+  line-height: 2.5rem;
+
+  .letter-1 {
+    letter-spacing: 1px;
+  }
+  .word-2 {
+    word-spacing: 2px;
+  }
+}
+
+/*============================================================== User Profile ==================================================*/
+.profile-container {
+  ::-webkit-scrollbar-track {
+    background-color: #ffffff;
+  }
+  font-family: var(--font1);
+  color: var(--secondary1);
+
+  .flex {
+    height: 88.5vh;
+    flex-wrap: wrap;
+  }
+  .details-side {
+    background-color: var(--secondary1);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 20px 20px 0;
+
+    @apply xl:basis-3/12 lg:basis-5/12 basis-full flex-col items-center justify-center;
+  }
+  .data-side {
+    @apply xl:basis-9/12 lg:basis-7/12 basis-full mt-3;
+  }
+
+  .p-img {
+    display: inline-block;
+    width: 9rem;
+    height: 9rem;
+    text-align: center;
+    border-radius: 4.5rem;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .name {
+    font-family: var(--font2);
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .address {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+  .logout {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    @apply mt-4 cursor-pointer font-medium;
+  }
+
+  .card-container {
+    display: flex;
+    @apply pt-4 flex-wrap overflow-scroll;
+  }
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ADMIN SIDE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*============================================================== Admin Dashboard ==================================================*/
+.admin-dashboard-container {
+  display: flex;
+  @apply flex-wrap justify-center;
+
+  .dashboard-title {
+    font-size: 1.35rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: var(--secondary1);
+  }
+
+  .info-card-container {
+    @apply grid gap-3 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mb-6;
+  }
+
+  .info-card {
+    letter-spacing: 1px;
+    border-bottom: 3px solid var(--secondary1);
+    border-radius: 6px;
+    @apply h-24 px-5 max-sm:mx-8;
+
+    .title {
+      font-family: var(--font1);
+      color: var(--secondary1);
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    .value {
+      padding-left: 1rem;
+      font-size: 2.3rem;
+      font-weight: 500;
+    }
+  }
+
+  .graph {
+    height: 50vh;
+    @apply max-sm:h-52 mx-3 rounded-lg overflow-auto;
+  }
+
+  .bar-graph {
+    height: 61vh;
+    @apply max-sm:h-52 mx-3 rounded-lg overflow-auto;
+  }
+
+  .transac-title {
+    font-size: 2.75rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: var(--secondary1);
+    @apply max-sm:text-2xl;
+  }
+  .all-transaction-container {
+    height: 80vh;
+    @apply rounded-lg my-5 overflow-auto;
+  }
+}
+
+/*============================================================== Admin Orders ==================================================*/
+.admin-orders-container {
+  display: flex;
+  font-family: var(--font1);
+  @apply flex-wrap justify-center;
+
+  .data-wrapper {
+    display: flex;
+    border-bottom: 1px solid var(--secondary1);
+
+    @apply flex-wrap p-2 mb-3;
+  }
+
+  .button {
+    display: flex;
+    background-color: var(--secondary1);
+    color: white;
+    border-radius: 10px;
+    @apply h-10 w-16 m-1 items-center justify-center;
+    @apply max-sm:text-sm max-sm:h-7;
+  }
+}
+
+/*============================================================== Admin Products ==================================================*/
+.admin-product-container {
+  display: flex;
+  @apply flex-wrap justify-center;
+
+  .product-data-container {
+    height: 87vh;
+    @apply mt-3 md:px-5 px-2 overflow-auto;
+    @apply xl:basis-8/12 basis-11/12;
+  }
+  .data-wrapper {
+    display: flex;
+    border-bottom: 1px solid var(--secondary1);
+
+    @apply flex-wrap p-2 mb-3;
+  }
+
+  .icon {
+    color: var(--secondary1);
+    @apply text-4xl cursor-pointer;
+  }
+
+  .button {
+    display: flex;
+    background-color: var(--secondary1);
+    color: white;
+    border-radius: 10px;
+    @apply h-10 w-16 m-1 items-center justify-center;
+    @apply max-sm:text-sm max-sm:h-7;
+  }
+
+  .modal {
+    color: var(--secondary1);
+  }
+
+  .prod-input {
+    border: 2px solid var(--secondary1);
+    letter-spacing: 1px;
+    @apply w-full h-10 rounded-lg ps-2 max-sm:text-sm;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+  .img-input {
+    border-color: var(--secondary1);
+    @apply file-input file-input-bordered w-full max-w-xs;
+  }
+  .form-button {
+    background-color: var(--secondary2);
+    color: white;
+    letter-spacing: 1px;
+    height: 2.5rem;
+    border-radius: 10px;
+    @apply font-semibold max-sm:text-sm w-full;
+  }
+  .form-error {
+    font-family: var(--font1);
+    color: red;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+}
+
+/*============================================================== Admin Edit Product ==================================================*/
+.product-edit-container {
+  display: flex;
+  font-family: var(--font1);
+  @apply flex-wrap justify-center mt-5;
+
+  .p-img {
+    height: 40vh;
+    width: 40vh;
+    @apply max-md:w-60 max-md:h-60 overflow-hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .img-input {
+    border-color: var(--secondary1);
+    @apply file-input file-input-bordered w-full max-w-xs;
+  }
+
+  .edit-form {
+    .prod-input {
+      border: 2px solid var(--secondary1);
+      letter-spacing: 1px;
+      @apply w-full h-10 rounded-lg ps-2 max-sm:text-sm;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    .errors {
+      color: red;
+      letter-spacing: 1px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+  }
+
+  .button {
+    color: white;
+    letter-spacing: 1px;
+    height: 2.5rem;
+    border-radius: 10px;
+    @apply font-semibold max-sm:text-sm sm:w-2/12 w-3/12;
+  }
+  .cancel-btn {
+    background-color: var(--secondary2);
+    @apply mr-2;
+  }
+  .save-btn {
+    background-color: var(--secondary1);
+    @apply ml-2;
+  }
+}
+
+/*============================================================== Admin Users ==================================================*/
+.admin-users-container {
+  background-color: #f5f5f5f1;
+  height: 94vh;
+  font-family: var(--font1);
+  display: flex;
+  @apply flex-wrap justify-center;
+
+  .data-card {
+    @apply bg-white px-3 py-1 rounded-lg shadow-md;
+  }
+  .action-btn {
+    font-family: var(--font2);
+    display: inline-flex;
+    background-color: var(--secondary1);
+    color: white;
+    height: 2.5rem;
+
+    @apply inline-flex text-white rounded-lg p-2 m-1;
+  }
+}
+
+/*============================================================== Admin Settings ==================================================*/
+.admin-settings-container {
+  display: flex;
+  @apply flex-wrap justify-center;
+
+  .cells {
+    font-family: var(--font2);
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    padding-top: 0.5rem;
+    border-right: 4px solid var(--secondary2);
+    border-radius: 4px;
+    @apply h-20 font-semibold max-sm:text-base;
+  }
+
+  .button {
+    font-family: var(--font1);
+    color: white;
+    background-color: var(--secondary2);
+    @apply w-20 h-12 rounded-md mr-2 mt-2;
+  }
+  .note {
+    font-family: var(--font1);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 0.6rem;
+    line-height: 0.8rem;
+  }
+}

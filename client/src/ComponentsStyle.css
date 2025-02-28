@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --primary: #0a0a5d;
+  --primary2: #f4bc33;
+  --secondary1: #124e73;
+  --secondary2: #2b4150;
+  --font1: "Source Sans 3", sans-serif;
+  --font2: "MuseoModerno", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
+  /* font-family: 'MuseoModerno', sans-serif; */
+}
+
+/* =========================== Product Card ===========================*/
+.items-card {
+  position: relative;
+  z-index: -1;
+  color: var(--secondary1);
+
+  .card-title {
+    /* hidden the text after 2 lines */
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    @apply md:text-xl text-base;
+  }
+
+  .card-discription {
+    font-weight: 500;
+    font-family: var(--font1);
+
+    /* hidden the text after 2 lines */
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    @apply md:text-base text-sm overflow-hidden;
+  }
+
+  .card-price {
+    font-family: var(--font1);
+    letter-spacing: 1px;
+    font-weight: 800;
+    @apply md:text-xl text-lg;
+  }
+
+  &:hover {
+    border: 2px solid var(--secondary1);
+  }
+}
+
+/* =========================== Order Details ===========================*/
+.order-card {
+  position: relative;
+  z-index: -1;
+  line-height: 0.8rem;
+  color: var(--secondary1);
+
+  @apply md:mx-12 mx-1 mb-5;
+
+  .card-title {
+    font-size: 1.5rem;
+    font-family: var(--font2);
+
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+  .card-title {
+    font-size: 1.3rem;
+  }
+  .details {
+    font-weight: 600;
+    font-size: 0.85rem;
+
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .price {
+    text-align: end;
+    @apply font-semibold md:text-xl text-base;
+  }
+}
+
+/* =========================== Product Details ===========================*/
+.product-details {
+  position: relative;
+  z-index: -1;
+
+  font-family: var(--font1);
+  color: var(--secondary1);
+  letter-spacing: 0.3px;
+  .card-body {
+    line-height: 0;
+    @apply p-3;
+  }
+  .card-title {
+    font-family: var(--font2);
+    line-height: 1.2rem !important;
+    font-weight: 600;
+
+    /* hidden the text after 2 lines */
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    @apply md:text-2xl text-base;
+  }
+  .details {
+    font-weight: 600;
+    line-height: 1rem !important;
+
+    /* hidden the text after 1 lines */
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+
+    @apply md:text-base text-sm pl-2;
+  }
+  .price {
+    font-weight: 700;
+    font-family: var(--font2);
+    line-height: 1rem !important;
+    @apply md:text-lg text-base;
+  }
+}
+
+/* =========================== Carted Products ===========================*/
+.carted-products {
+  position: relative;
+  z-index: -1;
+  color: var(--secondary1);
+
+  .card-title {
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    @apply lg:text-lg md:text-base text-sm;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-body {
+    @apply py-2 ps-2;
+  }
+  .details {
+    font-family: var(--font1);
+    font-weight: 600;
+    @apply lg:text-base text-sm;
+  }
+}
+
+/* =========================== Order History Details ===========================*/
+.order-history {
+  position: relative;
+  z-index: -1;
+  font-weight: 500;
+  color: var(--secondary1);
+  .card-title {
+    @apply lg:text-lg text-base;
+  }
+
+  .card-body {
+    @apply ps-3 py-4;
+  }
+  .details {
+    font-family: var(--font1);
+    @apply lg:text-base text-xs;
+  }
+}
