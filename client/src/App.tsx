@@ -54,9 +54,11 @@ function App() {
             <Route path="product/:details" element={<OrderProduct />} />
             <Route path="cart" element={<Cart />} />
             <Route path="edit-carted-products/:details" element={<EditCartedProducts />} />
-            <Route path="about" element={<About />} />
             <Route path="profile" element={<Profile />} />
           </Route>
+          
+          <Route path="/about" element={<About />} />
+
           <Route path="/admin" element={<NavbarAdmin />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="orders" element={<Orders />} />

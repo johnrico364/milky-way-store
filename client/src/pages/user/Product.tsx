@@ -30,10 +30,10 @@ export const Product = () => {
 
   return (
     <div className="product-container">
-      <div className="search-nav">
+      <div className="search-nav font-sans font-semibold">
         <input className="search-bar" type="text" placeholder="Search" />
       </div>
-      <div className="flex justify-center mt-3">
+      <div className="flex justify-center">
         <img
           className="banner"
           src={require(`../../images/assets/milk-banner-${bannerIndex}.png`)}
