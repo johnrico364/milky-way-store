@@ -6,9 +6,13 @@ import {
   FaBox,
   FaCartShopping,
   FaCircleInfo,
+  FaFacebook,
+  FaInstagram,
+  FaTwitter,
   FaUserLarge,
   FaXmark,
 } from "react-icons/fa6";
+import { GiMilkCarton } from "react-icons/gi";
 import axios from "axios";
 
 export const NavbarUser = () => {
@@ -44,24 +48,19 @@ export const NavbarUser = () => {
     {
       path: "product",
       name: "Products",
-      icon: <FaBox className="me-1" />
+      icon: <FaBox className="me-1" />,
     },
     {
-      path: "cart", 
+      path: "cart",
       name: "Cart",
-      icon: <FaCartShopping className="me-1" />
-    },
-    {
-      path: "about",
-      name: "About",
-      icon: <FaCircleInfo className="me-1" />
+      icon: <FaCartShopping className="me-1" />,
     },
     {
       path: "profile",
-      name: "Profile", 
-      icon: <FaUserLarge className="me-1" />
-    }
-  ]
+      name: "Profile",
+      icon: <FaUserLarge className="me-1" />,
+    },
+  ];
 
   return (
     <div>
@@ -79,7 +78,13 @@ export const NavbarUser = () => {
             </li>
             {routes.map((route) => (
               <li key={route.path} onClick={() => navigate(route.path)}>
-                <span className={location.pathname === `/user/${route.path}` ? 'underline' : ''}>
+                <span
+                  className={
+                    location.pathname === `/user/${route.path}`
+                      ? "underline"
+                      : ""
+                  }
+                >
                   {route.icon}
                   {route.name}
                 </span>
@@ -109,8 +114,18 @@ export const NavbarUser = () => {
               </span>
             </li>
             {routes.map((route) => (
-              <li key={route.path} className="hideOnMobile" onClick={() => navigate(route.path)}>
-                <span className={location.pathname === `/user/${route.path}` ? 'underline' : ''}>
+              <li
+                key={route.path}
+                className="hideOnMobile"
+                onClick={() => navigate(route.path)}
+              >
+                <span
+                  className={
+                    location.pathname === `/user/${route.path}`
+                      ? "underline"
+                      : ""
+                  }
+                >
                   {route.icon}
                   {route.name}
                 </span>
@@ -126,6 +141,43 @@ export const NavbarUser = () => {
 
         <div>
           <Outlet />
+        </div>
+        <div className="footer border">
+          <div className="flex flex-wrap justify-center items-center w-full">
+            <div className="basis-2/12 mt-3">
+            <GiMilkCarton className="text-[10rem]"/>
+            </div>
+            <div className="basis-2/12">
+              <div className="mb-5 font-semibold">Helpful Links</div>
+              <div>Cookie Policy</div>
+              <div>Privacy Policy</div>
+              <div>Terms of Service</div>
+              <div>Product Declarations</div>
+              <div className="cursor-pointer" onClick={() => navigate('/about')}>About Us</div>
+            </div>
+            <div className="basis-2/12">
+              <div className="mb-5 font-semibold">Follow us on</div>
+
+              <div>
+                <FaTwitter className="inline"/> @MilkyWayOnlineShop
+              </div>
+              <div>
+                <FaInstagram className="inline"/> @milky.way.online
+              </div>
+              <div>
+                <FaFacebook className="inline"/> @MilkyWayOfficial
+              </div>
+            </div>
+            <div className="basis-4/12">
+              <div className="font-semibold">Email</div>
+              <div>milkywayshop@gmail.com</div>
+              <div className="mt-2 font-semibold">Address</div>
+              <div>Highway Mandaue, Coner L. Jayme St. Mandaue City, Cebu</div>
+              <div className="mt-2 font-semibold">Contact Number</div>
+              <div>(032) 230 1234</div>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
