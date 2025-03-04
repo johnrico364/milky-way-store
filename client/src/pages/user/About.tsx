@@ -21,16 +21,9 @@ export const About = () => {
         <div className="text-4xl font-semibold mt-14 letter-1">Our Story</div>
         <div className="text-justify word-2 italic px-4">
           <div className="mt-4">
-            <b>Say Lava Logistics</b> is a corporation type of business founded
+            <b>Milky Way E-Store</b> is a corporation type of business founded
             by Amen Say and Steven Lava in 2022 with the vision of helping
             clients get their products quickly, efficiently, and safely.
-          </div>
-          <div className="mt-4">
-            Before the Say Lava Logistics Corporation started, it was first
-            established by the previous company known as VGL. Unfortunately, the
-            company underwent bankruptcy. Amen C. Say and Steven Lava conducted
-            a corporate buyout of the VGL company. They then established the SLL
-            Corporation.
           </div>
           <div className="mt-4">
             Milky Way is a e-store company that stores

@@ -142,10 +142,10 @@ export const NavbarUser = () => {
         <div>
           <Outlet />
         </div>
-        <div className="footer border">
+        <div className="footer hidden sm:block">
           <div className="flex flex-wrap justify-center items-center w-full">
-            <div className="basis-2/12 mt-3">
-            <GiMilkCarton className="text-[10rem]"/>
+            <div className="basis-2/12 mt-3 hidden lg:block">
+              <GiMilkCarton className="text-[10rem]" />
             </div>
             <div className="basis-2/12">
               <div className="mb-5 font-semibold">Helpful Links</div>
@@ -153,19 +153,24 @@ export const NavbarUser = () => {
               <div>Privacy Policy</div>
               <div>Terms of Service</div>
               <div>Product Declarations</div>
-              <div className="cursor-pointer" onClick={() => navigate('/about')}>About Us</div>
+              <div
+                className="cursor-pointer"
+                onClick={() => navigate("/about")}
+              >
+                About Us
+              </div>
             </div>
             <div className="basis-2/12">
               <div className="mb-5 font-semibold">Follow us on</div>
 
               <div>
-                <FaTwitter className="inline"/> @MilkyWayOnlineShop
+                <FaTwitter className="inline" /> @MilkyWayOnlineShop
               </div>
               <div>
-                <FaInstagram className="inline"/> @milky.way.online
+                <FaInstagram className="inline" /> @milky.way.online
               </div>
               <div>
-                <FaFacebook className="inline"/> @MilkyWayOfficial
+                <FaFacebook className="inline" /> @MilkyWayOfficial
               </div>
             </div>
             <div className="basis-4/12">
@@ -175,7 +180,6 @@ export const NavbarUser = () => {
               <div>Highway Mandaue, Coner L. Jayme St. Mandaue City, Cebu</div>
               <div className="mt-2 font-semibold">Contact Number</div>
               <div>(032) 230 1234</div>
-
             </div>
           </div>
         </div>

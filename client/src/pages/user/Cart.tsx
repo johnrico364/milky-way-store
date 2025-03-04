@@ -75,7 +75,12 @@ export const Cart = () => {
                 <CartedProducts data={cart} />
               </div>
               <div className="basis-1/12 text-end lg:pe-5 pt-5">
-              <div onClick={() => console.log('object')}>Edit</div>
+                <div
+                  className="font-semibold cursor-pointer underline underline-offset-2"
+                  onClick={() => navigate(`/user/edit-carted-products/${cart?._id}`)}
+                >
+                  Edit
+                </div>
                 <input
                   className="checkbox"
                   type="checkbox"

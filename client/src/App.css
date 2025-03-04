@@ -10,7 +10,7 @@
   --secondary1: #124e73;
   --secondary2: #2b4150;
   --font1: "Source Sans 3", sans-serif;
-  --font2: "MuseoModerno", sans-serif;
+  --font2: "MuseoModerno", monospace;
   font-family: "Source Sans 3", sans-serif;
   /* font-family: 'MuseoModerno', sans-serif; */
 }
@@ -42,6 +42,16 @@
 }
 .bg-2nd-2 {
   background-color: var(--secondary2);
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+.wrapper-center {
+  display: flex;
+  flex-wrap: wrap;
+  @apply justify-center items-center;
 }
 
 /*============================================================== Log in ==================================================*/
@@ -315,19 +325,14 @@
   }
 
   .sidebar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 250px;
     background-color: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(12px);
     box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
     list-style: none;
     display: none;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+
+    @apply fixed top-0 right-0 h-[100vh] w-[250px];
+    @apply flex-col items-start justify-start;
   }
   .sidebar li,
   .sidebar a {
@@ -354,6 +359,33 @@
   }
 }
 
+/*============================================================== Navbar Footer ==================================================*/
+.footer{
+  background-color: var(--secondary1);
+  color: #e2e2e2;
+  font-family: var(--font1);
+  font-size: .8rem !important;
+  letter-spacing: 1px;
+
+  @apply h-[20vh];
+}
+
+/*============================================================== About Us ==================================================*/
+.about-container {
+  font-family: var(--font2);
+  color: var(--secondary1);
+  line-height: 2.5rem;
+
+  .letter-1 {
+    letter-spacing: 1px;
+  }
+  .word-2 {
+    word-spacing: 2px;
+  }
+
+  @apply flex-wrap justify-center;
+}
+
 /*============================================================== User Products ==================================================*/
 .product-container {
   .search-nav {
@@ -378,8 +410,11 @@
 
   .items-container {
     margin-top: 3vh;
+    height: 68vh;
+    overflow: auto;
+    scrollbar-width: thin;  
 
-    @apply lg:mx-28 mx-2 grid xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4;
+    @apply lg:mx-[6.5rem] mx-2 grid xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4;
   }
 
   .banner {
@@ -392,6 +427,7 @@
 /*============================================================== User Order Product ==================================================*/
 .order-product-container {
   display: flex;
+  height: 92vh;
   color: var(--secondary1);
   @apply flex-wrap justify-center;
 
@@ -453,6 +489,7 @@
 
   .product-container {
     height: 80vh;
+    scrollbar-width: thin;
     @apply lg:basis-7/12 basis-11/12 mt-7 overflow-auto;
   }
 
@@ -469,18 +506,9 @@
   }
 }
 
-/*============================================================== About Us ==================================================*/
-.about-container {
-  @apply flex-wrap justify-center;
-  color: var(--secondary1);
-  line-height: 2.5rem;
-
-  .letter-1 {
-    letter-spacing: 1px;
-  }
-  .word-2 {
-    word-spacing: 2px;
-  }
+/*============================================================== User EditCart ==================================================*/
+.edit-cart-container {
+  height: 93vh;
 }
 
 /*============================================================== User Profile ==================================================*/
