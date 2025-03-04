@@ -1,11 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { CartedProducts } from "../../components/CartedProducts";
-import { useGetAllCarts } from "../../hooks/order/useGetAllCarts";
-import { useParseToken } from "../../hooks/user/useParseToken";
 import { useState } from "react";
-import { useCheckoutCart } from "../../hooks/order/useCheckoutCart";
 import { useNavigate } from "react-router-dom";
 import { FaCircleCheck, FaXmark } from "react-icons/fa6";
+
+//Custom Hooks
+import { useGetAllCarts } from "../../hooks/order/useGetOrder";
+import { useParseToken } from "../../hooks/user/useParseToken";
+import { useCheckoutCart } from "../../hooks/order/useCheckoutCart";
+
+//Components
+import { CartedProducts } from "../../components/CartedProducts";
 
 export const Cart = () => {
   const navigate = useNavigate();

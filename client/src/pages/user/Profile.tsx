@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParseToken } from "../../hooks/user/useParseToken";
-import { useGetUserOrderByStatus } from "../../hooks/order/useGetUserOrderByStatus";
+import { useGetUserOrderByStatus } from "../../hooks/order/useGetOrder";
 
 interface UserData {
   _id: string;

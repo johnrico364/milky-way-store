@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { ProductCard } from "../../components/ProductCard";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGetAllProducts } from "../../hooks/product/useGetAllProducts";
+
+import { useGetAllProducts } from "../../hooks/product/useGetProducts";
+import { ProductCard } from "../../components/ProductCard";
+
 
 export const Product = () => {
   const navigate = useNavigate();

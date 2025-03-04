@@ -2,7 +2,7 @@ import { FaBell } from "react-icons/fa6";
 import { OrderDetails } from "../../components/OrderDetails";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useGetToShipOrders } from "../../hooks/order/useGetToShipOrders";
+import { useGetToShipOrders } from "../../hooks/order/useGetOrder";
 import { useState } from "react";
 import { useUpdateOrderStatus } from "../../hooks/order/useUpdateOrderStatus";
 

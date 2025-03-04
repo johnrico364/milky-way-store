@@ -6,10 +6,12 @@ import {
   FaTruck,
 } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetOneProduct } from "../../hooks/product/useGetOneProduct";
 import { useState } from "react";
-import { useOrderProduct } from "../../hooks/order/useOrderProduct";
 import { useQuery } from "@tanstack/react-query";
+
+// Custom Hooks
+import { useGetOneProduct } from "../../hooks/product/useGetProducts";
+import { useOrderProduct } from "../../hooks/order/useOrderProduct";
 import { useParseToken } from "../../hooks/user/useParseToken";
 
 interface ProductData {

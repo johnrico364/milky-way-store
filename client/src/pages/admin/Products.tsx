@@ -1,14 +1,18 @@
 import { FaBoxOpen, FaCirclePlus } from "react-icons/fa6";
-import { ProductDetails } from "../../components/ProductDetails";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import { useAddProduct } from "../../hooks/product/useAddProduct";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+
+// Custom Hooks
 import { useDeleteProduct } from "../../hooks/product/useDeleteProduct";
-import { useGetAllProducts } from "../../hooks/product/useGetAllProducts";
+import { useGetAllProducts } from "../../hooks/product/useGetProducts";
+import { useAddProduct } from "../../hooks/product/useAddProduct";
+
+// Components
+import { ProductDetails } from "../../components/ProductDetails";
 
 export const Products = () => {
   const navigate = useNavigate();
