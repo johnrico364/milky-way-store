@@ -56,6 +56,18 @@ const getUserCarts = async (req, res) => {
   }
 };
 
+const getOneOrder = async (req, res) => {
+  const order_id = req.params.order_id;
+
+  try {
+    const order = await Order.findById(order_id).populate("product");
+
+    res.status(200).json({ order });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 const checkoutCartedProducts = async (req, res) => {
   const cart_ids = await req?.body;
 
@@ -160,6 +172,7 @@ const updataOrderStatus = async (req, res) => {
 module.exports = {
   orderProduct,
   getUserCarts,
+  getOneOrder,
   checkoutCartedProducts,
   cancelOrder,
   getUserOrderByStatus,
