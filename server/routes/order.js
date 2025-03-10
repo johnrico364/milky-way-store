@@ -9,9 +9,7 @@ router.get("/cart/:ordered_by", Controllers.getUserCarts); //user carts
 
 router.post("/checkout-cart", Controllers.checkoutCartedProducts); //user carts
 
-router.get('/one-order/:order_id', Controllers.getOneOrder); // user edit one order
-
-router.delete("/cancel-order/:id", Controllers.cancelOrder);
+router.delete("/cancel-order/:id", Controllers.cancelOrder); // user carts
 
 router.post("/get-by-status", Controllers.getUserOrderByStatus); //user profile
 

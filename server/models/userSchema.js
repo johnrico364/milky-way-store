@@ -71,19 +71,63 @@ userSchema.statics.login = async function (user) {
 userSchema.statics.sendOtp = async function (fname, email) {
   const randomOtp = Math.floor(Math.random() * 900000) + 100000;
 
+
   const sendOtp = {
     from: {
-      name: "Say Lava Logistics",
+      name: "Milky Way E-Shop",
       address: process.env.USER,
     },
     to: [email],
     subject: "Email Verification",
     html: `
-        <h3> Hello ${fname}, your one-time password (OTP) is <i>${randomOtp}<i/>. Please
-             use this code within the next 10 minutes to complete your verification 
-             process. For your security, do not share this code with anyone. If you 
-             did not request this OTP, please contact our support team immediately. 
-        </h3>
+        <div
+          style="
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+          "
+        >
+          <div
+            style="
+              font-size: 32px;
+              font-weight: 800;
+              letter-spacing: 1px;
+              color: #124e73;
+              margin-bottom: 20px;
+            "
+          >
+            Milky Way E-Shop
+          </div>
+          <p class="message">
+            Hello ${fname}, use the OTP below to verify your email address. This
+            OTP is valid for 5 minutes.
+          </p>
+          <div
+            style="
+              font-size: 32px;
+              font-weight: 700;
+              letter-spacing: 1px;
+              color: #0a0a5d;
+              padding: 10px;
+              border: 2px dashed #124e73;
+              display: inline-block;
+              margin: 20px 0;
+            "
+          >
+            ${randomOtp}
+          </div>
+          <p style="font-size: 16px; color: #555; margin-bottom: 20px">
+            If you did not request this, please ignore this email.
+          </p>
+          <div style="font-size: 12px; color: #777; margin-top: 20px">
+            &copy; 2025 Your Company. All rights reserved.
+          </div>
+        </div>
         `,
   };
 
@@ -93,7 +137,7 @@ userSchema.statics.sendOtp = async function (fname, email) {
     throw Error("Fail to send OTP");
   }
 
-  return { otp: randomOtp, mess: "OTP sent successfully." };
+  return { otp: randomOtp, mess: "OTP sent successfully. Please check also in your spams" };
 };
 
 module.exports = mongoose.model("User", userSchema);
