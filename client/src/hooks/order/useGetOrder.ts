@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 // User Side | Profile
 export const useGetUserOrderByStatus = () => {
@@ -33,14 +33,15 @@ export const useGetAllCarts = () => {
 };
 
 
+
 // Admin Side | Orders
 export const useGetToShipOrders = () => {
   const getToShipOrders = async () => {
     try {
       const orders = await axios.get("/api/order/to-ship");
-      return orders?.data?.orders
+      return orders?.data?.orders;
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   };
 

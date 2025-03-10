@@ -8,7 +8,6 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { Provider, useDispatch } from "react-redux";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { login, store } from "./store"; //Global States
 import { useEffect } from "react";
 
@@ -28,7 +27,6 @@ import { Users } from "./pages/admin/Users";
 import { Settings } from "./pages/admin/Settings";
 import { OrderProduct } from "./pages/user/OrderProduct";
 import { ProductEdit } from "./pages/admin/ProductEdit";
-import { EditCartedProducts } from "./pages/user/EditCartedProducts";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,7 +51,6 @@ function App() {
             <Route path="product" element={<Product />} />
             <Route path="product/:details" element={<OrderProduct />} />
             <Route path="cart" element={<Cart />} />
-            <Route path="edit-carted-products/:details" element={<EditCartedProducts />} />
             <Route path="profile" element={<Profile />} />
           </Route>
           
