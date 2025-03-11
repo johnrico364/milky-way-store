@@ -23,16 +23,10 @@ export const Orders = () => {
 
   const approveOrDeclineOrder = async (status: string, order: any) => {
     try {
-      const res = window.confirm(
-        `Product: ${order.product.name} \n\nPress "ok" to ${status} this product?`
+      set_ordersData(
+        ordersData.filter((orderData: any) => orderData !== order)
       );
-
-      if (res) {
-        set_ordersData(
-          ordersData.filter((orderData: any) => orderData !== order)
-        );
-        await updateOrderStatus(status, order);
-      }
+      await updateOrderStatus(status, order);
     } catch (error) {}
   };
 
