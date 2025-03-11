@@ -29,7 +29,7 @@ orderSchema.statics.approve = async function (order) {
   const user = await User.findById(order.ordered_by);
   const emailMess = {
     from: {
-      name: "Say Lava Logistics",
+      name: "Milky Way E-Shop",
       address: process.env.USER,
     },
     to: [user.email],
@@ -55,7 +55,7 @@ orderSchema.statics.decline = async function (order) {
   const user = await User.findById(order.ordered_by);
   const emailMess = {
     from: {
-      name: "Say Lava Logistics",
+      name: "Milky Way E-Shop",
       address: process.env.USER,
     },
     to: [user.email],

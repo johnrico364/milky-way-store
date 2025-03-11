@@ -10,6 +10,7 @@ import { useCheckoutCart } from "../../hooks/order/useCheckoutCart";
 
 //Components
 import { CartedProducts } from "../../components/CartedProducts";
+import { useCancelCart } from "../../hooks/order/useCancelCart";
 
 export const Cart = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export const Cart = () => {
   const { getAllCarts } = useGetAllCarts();
   const { parseToken } = useParseToken();
   const { checkoutCart } = useCheckoutCart();
+  const { cancelCart } = useCancelCart();
 
   const [cartData, set_cartData] = useState<any>([]);
   const [checkOut, set_checkOut] = useState<string[]>([]);
@@ -59,6 +61,10 @@ export const Cart = () => {
     }
   };
 
+  const cancelCartFn = async (order_id: string) => {
+    await cancelCart(order_id);
+  };
+
   return (
     <div className="cart-container">
       {checkOutMessage !== "" && (
@@ -81,9 +87,9 @@ export const Cart = () => {
               <div className="basis-1/12 text-end lg:pe-5 pt-5">
                 <div
                   className="font-semibold cursor-pointer underline underline-offset-2"
-                  onClick={() => navigate(`/user/edit-carted-products/${cart?._id}`)}
+                  onClick={() => cancelCartFn(cart._id)}
                 >
-                  Edit
+                  Cancel
                 </div>
                 <input
                   className="checkbox"

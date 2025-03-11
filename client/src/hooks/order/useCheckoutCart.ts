@@ -1,5 +1,4 @@
 import axios from "axios";
-import { error } from "console";
 
 export const useCheckoutCart = () => {
   const checkoutCart = async (cart_id: any) => {
