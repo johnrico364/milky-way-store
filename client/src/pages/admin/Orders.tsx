@@ -39,6 +39,12 @@ export const Orders = () => {
   return (
     <div className="admin-orders-container">
       <div className="lg:basis-7/12 basis-11/12 pt-6">
+        {ordersData.length === 0 && (
+          <div className="text-3xl font-semibold text-center font-mono">
+            No orders found...
+          </div>
+        )}
+
         {ordersData.map((order: any) => {
           return (
             <div className="data-wrapper">

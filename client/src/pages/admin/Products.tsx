@@ -27,7 +27,7 @@ export const Products = () => {
       .number()
       .transform((value, origvalue) => (origvalue.trim() === "" ? 1 : value))
       .integer("Whole number only")
-      .min(100, "Price too low"),
+      .min(5, "Price too low"),
     stocks: yup
       .number()
       .transform((value, origvalue) => (origvalue.trim() === "" ? 1 : value))
@@ -45,9 +45,9 @@ export const Products = () => {
 
   const [productImg, set_productImg] = useState<File | null>(null);
   const [successMess, set_successMess] = useState<string>("");
-  const [allProducts, set_allProducts] = useState<any>([]);
+  const [allProducts, set_allProducts] = useState([]);
 
-  const { addProductAPI, exception, set_exception } = useAddProduct();
+  const { addProduct, exception, set_exception } = useAddProduct();
   const { getAllProducts } = useGetAllProducts();
   const { deleteProductAPI } = useDeleteProduct();
 
@@ -58,38 +58,42 @@ export const Products = () => {
     productData.append("product", JSON.stringify(form));
 
     try {
-      const prod = await addProductAPI(productData);
+      const prod = await addProduct(productData);
 
       if (prod?.response) {
         set_successMess(prod?.message);
-        window.location.reload();
       }
     } catch (error) {}
   };
 
-  const deleteProductFn = async (_id: any, name: string) => {
-    try {
-      if (
-        window.confirm(`product: ${name} \nPress "ok" to delete this product.`)
-      ) {
-        await deleteProductAPI(_id);
-      }
-    } catch (error) {}
+  const deleteProductFn = async (_id: any) => {
+    await deleteProductAPI(_id);
+    productData.refetch();
+  };
+
+  const effectProduct = async () => {
+    const products = await getAllProducts();
+    set_allProducts(products);
   };
 
   const productData = useQuery({
     queryKey: ["product"],
-    queryFn: async () => {
-      const products = await getAllProducts();
-      set_allProducts(products);
+    queryFn: () => {
+      effectProduct();
       return true;
-    }
+    },
   });
 
   return (
     <div className="admin-product-container">
       <div className="product-data-container">
         {productData.isLoading && <div className="text-6xl">Loading...</div>}
+
+        {allProducts.length === 0 && (
+          <div className="text-3xl font-semibold text-center font-mono">
+            No products found...
+          </div>
+        )}
 
         {allProducts.map((product: any) => {
           return (
@@ -109,7 +113,7 @@ export const Products = () => {
                   </button>
                   <button
                     className="button"
-                    onClick={() => deleteProductFn(product?._id, product?.name)}
+                    onClick={() => deleteProductFn(product?._id)}
                   >
                     Delete
                   </button>

@@ -4,10 +4,12 @@ import { useState } from "react";
 export const useAddProduct = () => {
   const [exception, set_exception] = useState<string>("");
 
-  const addProductAPI = async (newProduct: any) => {
+  const addProduct = async (newProduct: any) => {
     try {
       const product = await axios.post("/api/product/create", newProduct);
       console.log(product);
+
+      window.location.reload();
 
       return { response: true, message: "Product Created Successfully!" };
     } catch (error: any) {
@@ -15,5 +17,5 @@ export const useAddProduct = () => {
     }
   };
 
-  return { addProductAPI, exception, set_exception };
+  return { addProduct, exception, set_exception };
 };

@@ -29,9 +29,16 @@ export const ProductDetails: React.FC<ProductDetailsProps> = ({ data }) => {
           <div className="card-body max-md:gap-1">
             <h2 className="card-title">{data.name}</h2>
             <div className="details">{data.description}</div>
-            <div className="details">Stocks: {data.stocks}</div>
-            <div className="details">Supplier: {data.supplier}</div>
-            <div className="price">Price: ₱ {formatter(data.price)}</div>
+            <div className="details">
+              <div className="font-bold inline">Stocks:</div> {data.stocks}
+            </div>
+            <div className="details">
+              <div className="font-bold inline">Supplier:</div> {data.supplier}
+            </div>
+            <div className="price">
+              <div className="font-bold inline">Price:</div> ₱{" "}
+              {formatter(data.price)}
+            </div>
           </div>
         </div>
       </div>
