@@ -15,6 +15,6 @@ router.post("/get-by-status", Controllers.getUserOrderByStatus); //user profile
 
 router.get("/to-ship", Controllers.getToShipOrders); //admin orders
 
-router.patch("/update-status", Controllers.updataOrderStatus);
+router.patch("/update-status", Controllers.updateOrderStatus);
 
 module.exports = router;

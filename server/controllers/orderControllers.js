@@ -149,7 +149,7 @@ const getToShipOrders = async (req, res) => {
   }
 };
 
-const updataOrderStatus = async (req, res) => {
+const updateOrderStatus = async (req, res) => {
   const { status, order } = req?.body;
 
   try {
@@ -177,5 +177,5 @@ module.exports = {
   cancelOrder,
   getUserOrderByStatus,
   getToShipOrders,
-  updataOrderStatus,
+  updateOrderStatus,
 };
