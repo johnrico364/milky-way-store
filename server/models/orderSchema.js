@@ -34,10 +34,32 @@ orderSchema.statics.approve = async function (order) {
     },
     to: [user.email],
     subject: "Shipped Out",
-    html: `<p>
-      Parcel <b>${order?._id.toUpperCase()}</b> from your order 
-      ${order?.product?.name.toUpperCase()} has been shipped out.
-    </p>`,
+    html: `
+      <div
+        style="
+          color: #e0dbdb;
+          background-color: #0a0a5d;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          max-width: 600px;
+          margin: auto;
+        "
+      >
+        <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px">
+          Order Status Update
+        </div>
+        <p>Dear Customer,</p>
+        <p>
+          Your order ${order?.product?.name.toUpperCase()} with Order Number <strong>${order?._id.toUpperCase()}</strong> has been APPROVED.
+        </p>
+        <p>Thank you for shopping with us.</p>
+        <p>Best regards,<br />Customer Support Team</p>
+        <div style="margin-top: 20px; font-size: 12px; color: #b1aeae">
+          This is an automated message. Please do not reply.
+        </div>
+      </div>
+      `,
   };
 
   try {
@@ -50,7 +72,7 @@ orderSchema.statics.approve = async function (order) {
 };
 
 orderSchema.statics.decline = async function (order) {
-  await this.findByIdAndDelete(order._id);
+  // await this.findByIdAndDelete(order._id);
 
   const user = await User.findById(order.ordered_by);
   const emailMess = {
@@ -60,11 +82,32 @@ orderSchema.statics.decline = async function (order) {
     },
     to: [user.email],
     subject: "Decline Parcel",
-    html: `<p>
-      Parcel <b>${order?._id.toUpperCase()}</b> from your order 
-      ${order?.product?.name.toUpperCase()} has been declined by 
-      some company reasons.
-    </p>`,
+    html: `
+      <div
+        style="
+          color: #e0dbdb;
+          background-color: #0a0a5d;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          max-width: 600px;
+          margin: auto;
+        "
+      >
+        <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px">
+          Order Status Update
+        </div>
+        <p>Dear Customer,</p>
+        <p>
+          Your order ${order?.product?.name.toUpperCase()} with Order Number <strong>${order?._id.toUpperCase()}</strong> has been DECLINED.
+        </p>
+        <p>Thank you for shopping with us.</p>
+        <p>Best regards,<br />Customer Support Team</p>
+        <div style="margin-top: 20px; font-size: 12px; color: #b1aeae">
+          This is an automated message. Please do not reply.
+        </div>
+      </div>
+      `,
   };
 
   try {

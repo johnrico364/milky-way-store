@@ -345,6 +345,12 @@
   .icons {
     font-size: 1.6rem;
   }
+
+  .carted-number{
+    font-size: 12px;
+    @apply pb-3;
+  }
+
   @media (max-width: 1124px) {
     .hideOnMobile {
       display: none;
