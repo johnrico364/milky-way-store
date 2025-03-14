@@ -66,6 +66,8 @@ export const OrderProduct = () => {
     };
     const response = await orderOneProduct(orderForm);
 
+    console.log(response?.data.message)
+
     response?.success && navigate(`/user/${response?.data?.response}`);
   };
 

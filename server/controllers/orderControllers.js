@@ -24,7 +24,7 @@ const orderProduct = async (req, res) => {
 
       res
         .status(200)
-        .json({ error: "This order is already existing", response: "cart" });
+        .json({ message: "This order is already existing", response: "cart" });
     } else {
       const data = await Order.create({
         ...orderForm,
@@ -34,7 +34,7 @@ const orderProduct = async (req, res) => {
 
       res
         .status(200)
-        .json({ mess: "Order created successfully", response: "product" });
+        .json({ message: "Order created successfully", response: "product" });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
