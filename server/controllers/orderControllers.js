@@ -32,9 +32,13 @@ const orderProduct = async (req, res) => {
         isDelivered: false,
       });
 
+
       res
         .status(200)
-        .json({ message: "Order created successfully", response: "product" });
+        .json({
+          message: "Order created successfully",
+          response: orderForm.isCarted ? "cart" : "profile",
+        });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
