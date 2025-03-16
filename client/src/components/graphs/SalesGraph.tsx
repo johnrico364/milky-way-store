@@ -9,7 +9,9 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { useGetPast7Days } from "../../hooks/useGetPast7Days";
+
+import { useGetPast7Days } from "../../hooks/dashboard/useGetPast7Days";
+import { useEffect, useState } from "react";
 
 ChartJs.register(
   CategoryScale,
@@ -23,14 +25,31 @@ ChartJs.register(
 ChartJs.defaults.font.size = 14;
 
 export const SalesGraph = () => {
-  const [get] = useGetPast7Days();
+  const { getPastSevenDaysSales } = useGetPast7Days();
+
+  const [labels, set_labels] = useState<string[]>([]);
+  const [sales, set_sales] = useState<number[]>([]);
+
+  const effectSales = async () => {
+    const response = await getPastSevenDaysSales();
+    console.log(response);
+
+    if (response) {
+      set_labels(response.data?.labels);
+      set_sales(response.data?.sales);
+    }
+  };
+
+  useEffect(() => {
+    effectSales();
+  }, []);
 
   const lineChartData = {
-    labels: get,
+    labels: labels,
     datasets: [
       {
         label: "Sales of the Past 7 Days",
-        data: [1000, 2000, 3000, 2444, 6700, 7676, 6000, 222, 10333],
+        data: sales,
         backgroundColor: "cyan",
         borderColor: "#124e73",
       },
@@ -39,7 +58,7 @@ export const SalesGraph = () => {
 
   return (
     <>
-      <Line options={{responsive: true}} data={lineChartData} />
+      <Line options={{ responsive: true }} data={lineChartData} />
     </>
   );
 };
