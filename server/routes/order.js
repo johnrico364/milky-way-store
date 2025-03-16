@@ -1,5 +1,6 @@
 const express = require("express");
 const Controllers = require("../controllers/orderControllers");
+const DashboardControllers = require("../controllers/DashboardController");
 
 const router = express.Router();
 
@@ -16,5 +17,12 @@ router.post("/get-by-status", Controllers.getUserOrderByStatus); //user profile
 router.get("/to-ship", Controllers.getToShipOrders); //admin orders
 
 router.patch("/update-status", Controllers.updateOrderStatus);
+
+// ====================== DASHBOARD =======================
+
+router.get(
+  "/dashboard/get-past-7days-sales",
+  DashboardControllers.getPast7DaysSales
+);
 
 module.exports = router;
