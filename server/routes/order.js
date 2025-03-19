@@ -24,5 +24,6 @@ router.get(
   "/dashboard/get-past-7days-sales",
   DashboardControllers.getPast7DaysSales
 );
+router.get('/dashboard/get-top3-products', DashboardControllers.getTopThreeProducts);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const { trusted } = require("mongoose");
 const Order = require("../models/orderSchema");
+const Product = require("../models/productSchema");
 
 const getPast7DaysSales = async (req, res) => {
   const today = new Date();
@@ -54,6 +55,38 @@ const getPast7DaysSales = async (req, res) => {
   }
 };
 
+const getTopThreeProducts = async (req, res) => {
+  try {
+    const topThree = await Order.aggregate([
+      {
+        $match: {
+          isDelivered: true,
+        },
+      },
+      {
+        $group: {
+          _id: "$product",
+          totalPayment: { $sum: "$payment" },
+        },
+      },
+      { $sort: { totalPayment: -1 } },
+      { $limit: 3 },
+    ]);
+
+    const populatedTopThree = await Promise.all(
+      topThree.map(async (order) => {
+        const orderData = await Product.findById(order?._id).select("name");
+        return { name: orderData?.name, totalPayment: order?.totalPayment };
+      })
+    );
+
+    res.status(200).json({ top3: populatedTopThree });
+  } catch (error) {
+    res.status(200).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getPast7DaysSales,
+  getTopThreeProducts,
 };
