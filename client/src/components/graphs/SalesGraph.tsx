@@ -32,7 +32,6 @@ export const SalesGraph = () => {
 
   const effectSales = async () => {
     const response = await getPastSevenDaysSales();
-    console.log(response);
 
     if (response) {
       set_labels(response.data?.labels);
