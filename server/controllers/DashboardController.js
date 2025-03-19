@@ -73,14 +73,15 @@ const getTopThreeProducts = async (req, res) => {
       { $limit: 3 },
     ]);
 
-    const populatedTopThree = await Promise.all(
+    const topThreeNames = await Promise.all(
       topThree.map(async (order) => {
         const orderData = await Product.findById(order?._id).select("name");
-        return { name: orderData?.name, totalPayment: order?.totalPayment };
+        return orderData.name;
       })
     );
+    const topThreeSales = topThree.map((order) => order?.totalPayment);
 
-    res.status(200).json({ top3: populatedTopThree });
+    res.status(200).json({ sales: topThreeSales, names: topThreeNames });
   } catch (error) {
     res.status(200).json({ error: error.message });
   }
