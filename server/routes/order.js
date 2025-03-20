@@ -1,6 +1,6 @@
 const express = require("express");
 const Controllers = require("../controllers/orderControllers");
-const DashboardControllers = require("../controllers/DashboardController");
+const DashboardControllers = require("../controllers/dashboardController");
 
 const router = express.Router();
 
@@ -24,6 +24,10 @@ router.get(
   "/dashboard/get-past-7days-sales",
   DashboardControllers.getPast7DaysSales
 );
-router.get('/dashboard/get-top3-products', DashboardControllers.getTopThreeProducts);
+router.get(
+  "/dashboard/get-top3-products",
+  DashboardControllers.getTopThreeProducts
+);
+router.get("/dashboard/get-stocks", DashboardControllers.getProductStocks);
 
 module.exports = router;

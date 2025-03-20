@@ -83,11 +83,22 @@ const getTopThreeProducts = async (req, res) => {
 
     res.status(200).json({ sales: topThreeSales, names: topThreeNames });
   } catch (error) {
-    res.status(200).json({ error: error.message });
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const getProductStocks = async (req, res) => {
+  try {
+    const productData = await Product.find({isDeleted: false}).select('name stocks');
+
+    res.status(200).json(productData);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
 
 module.exports = {
   getPast7DaysSales,
   getTopThreeProducts,
+  getProductStocks
 };
