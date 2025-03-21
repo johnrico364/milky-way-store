@@ -96,7 +96,7 @@ const getProductStocks = async (req, res) => {
     const productNames = productData.map((product) => product.name);
     const productStocks = productData.map((product) => product.stocks);
 
-    res.status(200).json({ name: productNames, stocks: productStocks });
+    res.status(200).json({ names: productNames, stocks: productStocks });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
