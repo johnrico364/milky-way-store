@@ -635,8 +635,16 @@
     @apply max-sm:text-2xl;
   }
   .all-transaction-container {
-    height: 80vh;
-    @apply rounded-lg my-5 overflow-auto;
+    font-family: var(--font1);
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+
+    .view-button{
+      background-color: var(--primary);
+      color: whitesmoke;
+      @apply px-4 py-1 rounded-lg;
+    }
   }
 }
 

@@ -48,12 +48,12 @@ export const Dashboard = () => {
         </div>
 
         <div className="all-transaction-container">
-          <div className="transac-title w-full">Transactions History</div>
-          <div className="grid lg:grid-cols-2 gap-3 p-4 ">
-            <OrderHistoryDetails />
-            <OrderHistoryDetails />
-            <OrderHistoryDetails />
-            <OrderHistoryDetails />
+          <div className="wrapper justify-center">
+            <div className="basis-10/12">
+              <div className="text-2xl flex justify-between items-center">
+                Transaction History <button className="view-button">View</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
