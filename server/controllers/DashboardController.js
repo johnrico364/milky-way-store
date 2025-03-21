@@ -89,9 +89,14 @@ const getTopThreeProducts = async (req, res) => {
 
 const getProductStocks = async (req, res) => {
   try {
-    const productData = await Product.find({isDeleted: false}).select('name stocks');
+    const productData = await Product.find({ isDeleted: false }).select(
+      "name stocks"
+    );
 
-    res.status(200).json(productData);
+    const productNames = productData.map((product) => product.name);
+    const productStocks = productData.map((product) => product.stocks);
+
+    res.status(200).json({ name: productNames, stocks: productStocks });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -100,5 +105,5 @@ const getProductStocks = async (req, res) => {
 module.exports = {
   getPast7DaysSales,
   getTopThreeProducts,
-  getProductStocks
+  getProductStocks,
 };
