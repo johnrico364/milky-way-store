@@ -8,6 +8,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useGetProductStocks } from "../../hooks/dashboard/useGetProductStocks";
+import { useEffect, useState } from "react";
 
 ChartJs.register(
   CategoryScale,
@@ -17,25 +19,39 @@ ChartJs.register(
   Tooltip,
   Legend
 );
-ChartJs.defaults.font.size = 14;
+ChartJs.defaults.font.size = 12;
 
 export const ProductStocks = () => {
-    const barChartData = {
-        labels: [
-            'Lactom',
-            'Bonakid',
-            'Nido',
-            'Bearbrand',
-            'Dutch Milk'
-        ], datasets: [
-           { label: 'Product Stocks',
-            data: [321, 321, 543, 123,90],
-            backgroundColor: ['#0a0a5d', '#124e73', '#2b4150' ]
-           }
-        ]
-    }
+  const { getProductStocks } = useGetProductStocks();
 
+  const [names, set_names] = useState<string[]>([]);
+  const [stocks, set_stocks] = useState<number[]>([]);
 
+  const effectStocks = async () => {
+    const response = await getProductStocks();
+    set_names(response?.names);
+    set_stocks(response?.stocks);
+  };
 
-  return<> <Bar options={{}} data={barChartData}/></>;
+  useEffect(() => {
+    effectStocks();
+  }, []);
+
+  const barChartData = {
+    labels: names,
+    datasets: [
+      {
+        label: "Product Stocks",
+        data: stocks,
+        backgroundColor: ["#0a0a5d", "#124e73", "#2b4150"],
+      },
+    ],
+  };
+
+  return (
+    <>
+      {" "}
+      <Bar options={{}} data={barChartData} />
+    </>
+  );
 };
