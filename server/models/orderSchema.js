@@ -72,7 +72,7 @@ orderSchema.statics.approve = async function (order) {
 };
 
 orderSchema.statics.decline = async function (order) {
-  // await this.findByIdAndDelete(order._id);
+  await this.findByIdAndDelete(order._id);
 
   const user = await User.findById(order.ordered_by);
   const emailMess = {
