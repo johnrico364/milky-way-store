@@ -1,10 +1,24 @@
-import { FaBell } from "react-icons/fa6";
-import { OrderDetails } from "../../components/OrderDetails";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { useGetToShipOrders } from "../../hooks/order/useGetOrder";
 import { useState } from "react";
+import { formatDistanceToNow } from "date-fns";
+
+// Hooks
 import { useUpdateOrderStatus } from "../../hooks/order/useUpdateOrderStatus";
+import { useGetToShipOrders } from "../../hooks/order/useGetOrder";
+
+interface OrderDetailsProps {
+  quantity: number;
+  payment: number;
+  ordered_by: {
+    fname: string;
+    lname: string;
+  };
+  product: {
+    name: string;
+    price: number;
+  };
+  createdAt: string;
+}
 
 export const Orders = () => {
   const { getToShipOrders } = useGetToShipOrders();
@@ -16,7 +30,8 @@ export const Orders = () => {
     const order = await getToShipOrders();
     set_ordersData(order);
   };
-  const effectQuery = useQuery({
+
+  useQuery({
     queryKey: ["orders"],
     queryFn: effectOrder,
   });
@@ -32,37 +47,61 @@ export const Orders = () => {
 
   return (
     <div className="admin-orders-container">
-      <div className="lg:basis-7/12 basis-11/12 pt-6">
-        {ordersData.length === 0 && (
-          <div className="text-3xl font-semibold text-center font-mono">
-            No orders found...
-          </div>
-        )}
+      <div className="overflow-x-auto">
+        <table className="table table-xs">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Ordered By</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total Amount</th>
+              <th>Ordered</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ordersData.map((order: OrderDetailsProps, i) => {
+              const createdDate = formatDistanceToNow(
+                new Date(order.createdAt),
+                {
+                  addSuffix: true,
+                }
+              );
+              const formatter = new Intl.NumberFormat("en").format;
+              console.log(order, i);
 
-        {ordersData.map((order: any) => {
-          return (
-            <div className="data-wrapper">
-              <div className="basis-9/12">
-                <OrderDetails data={order} />
-              </div>
-
-              <div className="basis-3/12 text-center">
-                <button
-                  className="button"
-                  onClick={() => approveOrDeclineOrder("approve", order)}
-                >
-                  Approve
-                </button>
-                <button
-                  className="button"
-                  onClick={() => approveOrDeclineOrder("decline", order)}
-                >
-                  Decline
-                </button>
-              </div>
-            </div>
-          );
-        })}
+              return (
+                <tr key={i}>
+                  <th>{i + 1}</th>
+                  <td>
+                    {order.ordered_by.fname} {order.ordered_by.lname}
+                  </td>
+                  <td>{order.product.name}</td>
+                  <td>{order.product.price}</td>
+                  <td>{order.quantity}</td>
+                  <td>{formatter(order.payment)}</td>
+                  <td>{createdDate}</td>
+                  <td>
+                    <button
+                      className="button"
+                      onClick={() => approveOrDeclineOrder("approve", order)}
+                    >
+                      Approve
+                    </button>
+                    <button
+                      className="button"
+                      onClick={() => approveOrDeclineOrder("decline", order)}
+                    >
+                      Decline
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

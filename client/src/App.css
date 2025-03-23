@@ -650,24 +650,16 @@
 
 /*============================================================== Admin Orders ==================================================*/
 .admin-orders-container {
-  display: flex;
   font-family: var(--font1);
-  @apply flex-wrap justify-center;
+  @apply px-5 pt-5;
 
-  .data-wrapper {
-    display: flex;
-    border-bottom: 1px solid var(--secondary1);
-
-    @apply flex-wrap p-2 mb-3;
-  }
 
   .button {
     display: flex;
     background-color: var(--secondary1);
     color: white;
     border-radius: 10px;
-    @apply h-10 w-16 m-1 items-center justify-center;
-    @apply max-sm:text-sm max-sm:h-7;
+    @apply h-7 w-16 m-1 items-center justify-center;
   }
 }
 
