@@ -3,13 +3,16 @@ import {
   FaMapLocation,
   FaUserGear,
 } from "react-icons/fa6";
-import { OrderDetails } from "../../components/OrderDetails";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import axios from "axios";
 import { useEffect, useState } from "react";
+
+// Hooks
 import { useParseToken } from "../../hooks/user/useParseToken";
 import { useGetUserOrderByStatus } from "../../hooks/order/useGetOrder";
+
+// Components
+import { OrderDetails } from "../../components/OrderDetails";
+
 
 interface UserData {
   _id: string;
