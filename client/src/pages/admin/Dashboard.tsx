@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
 import { SalesGraph } from "../../components/graphs/SalesGraph";
 import { TopProductsGraph } from "../../components/graphs/TopProductsGraph";
 import { ProductStocks } from "../../components/graphs/ProductStocks";
-import { OrderHistoryDetails } from "../../components/OrderHistoryDetails";
 
 export const Dashboard = () => {
   return (

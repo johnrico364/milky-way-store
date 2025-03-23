@@ -5,7 +5,6 @@ import {
   FaBars,
   FaBox,
   FaCartShopping,
-  FaCircleInfo,
   FaFacebook,
   FaInstagram,
   FaTwitter,

@@ -4,12 +4,9 @@ import {
   FaArrowRightFromBracket,
   FaBars,
   FaBox,
-  FaCartShopping,
   FaChartLine,
-  FaCircleInfo,
   FaClipboardList,
   FaGears,
-  FaUserLarge,
   FaUsers,
   FaXmark,
 } from "react-icons/fa6";
