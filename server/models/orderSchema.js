@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 
 const orderSchema = new Schema(
   {
-    ordered_by: { type: String, required: true },
+    ordered_by: { type: String, required: true, ref: "User" },
     product: { type: String, required: true, ref: "Product" },
     quantity: { type: Number, required: true },
     payment: { type: Number, required: true },
