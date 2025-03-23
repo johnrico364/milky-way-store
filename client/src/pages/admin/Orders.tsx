@@ -70,7 +70,6 @@ export const Orders = () => {
                 }
               );
               const formatter = new Intl.NumberFormat("en").format;
-              console.log(order, i);
 
               return (
                 <tr key={i}>
