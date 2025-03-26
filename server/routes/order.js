@@ -14,7 +14,7 @@ router.delete("/cancel-order/:id", Controllers.cancelOrder); // user carts
 
 router.post("/get-by-status", Controllers.getUserOrderByStatus); //user profile
 
-router.get("/to-ship", Controllers.getToShipOrders); //admin orders
+router.get("/get/pending-or-delivery/:status", Controllers.getPendingOrDeliveryOrders); //admin orders
 
 router.patch("/update-status", Controllers.updateOrderStatus);
 

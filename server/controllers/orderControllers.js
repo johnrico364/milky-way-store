@@ -137,12 +137,18 @@ const getUserOrderByStatus = async (req, res) => {
   }
 };
 
-const getToShipOrders = async (req, res) => {
+const getPendingOrDeliveryOrders = async (req, res) => {
+  const status = req.params.status;
+
   try {
-    const orders = await Order.find({
+    let query = {
       isCarted: false,
-      isConfirmed: false,
-    })
+      isConfirmed: null,
+    };
+    if (status === "pending") query.isConfirmed = false;
+    if (status === "delivery") query.isConfirmed = true;
+
+    const orders = await Order.find(query)
       .populate({
         path: "product",
         select: "name price",
@@ -185,6 +191,6 @@ module.exports = {
   checkoutCartedProducts,
   cancelOrder,
   getUserOrderByStatus,
-  getToShipOrders,
+  getPendingOrDeliveryOrders,
   updateOrderStatus,
 };
