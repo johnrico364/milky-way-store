@@ -13,7 +13,6 @@ import { useGetUserOrderByStatus } from "../../hooks/order/useGetOrder";
 // Components
 import { OrderDetails } from "../../components/OrderDetails";
 
-
 interface UserData {
   _id: string;
   address: string;
@@ -30,8 +29,7 @@ export const Profile = () => {
 
   const [userData, set_userData] = useState<UserData>();
   const [ordersData, set_ordersData] = useState<string[]>([]);
-  const [queryOrderStatus, set_queryOrderStatus] =
-    useState<string>("to-approve");
+  const [queryOrderStatus, set_queryOrderStatus] = useState("to-approve");
 
   const effectProf = async () => {
     try {
