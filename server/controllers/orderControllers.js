@@ -144,6 +144,7 @@ const getPendingOrDeliveryOrders = async (req, res) => {
     let query = {
       isCarted: false,
       isConfirmed: null,
+      isDelivered: false,
     };
     if (status === "pending") query.isConfirmed = false;
     if (status === "delivery") query.isConfirmed = true;
