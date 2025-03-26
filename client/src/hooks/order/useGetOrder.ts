@@ -32,18 +32,18 @@ export const useGetAllCarts = () => {
   return { getAllCarts };
 };
 
-
-
 // Admin Side | Orders
-export const useGetToShipOrders = () => {
-  const getToShipOrders = async () => {
+export const useGetPendingOrDeliveryOrders = () => {
+  const getPendingOrDeliveryOrders = async (status: string) => {
     try {
-      const orders = await axios.get("/api/order/to-ship");
+      const orders = await axios.get(
+        `/api/order/get/pending-or-delivery/${status}`
+      );
       return orders?.data?.orders;
     } catch (error) {
       console.log(error);
     }
   };
 
-  return { getToShipOrders };
+  return { getPendingOrDeliveryOrders };
 };
