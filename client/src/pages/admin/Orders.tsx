@@ -1,10 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 
 // Hooks
 import { useUpdateOrderStatus } from "../../hooks/order/useUpdateOrderStatus";
-import { useGetToShipOrders } from "../../hooks/order/useGetOrder";
+import { useGetPendingOrDeliveryOrders } from "../../hooks/order/useGetOrder";
 
 interface OrderDetailsProps {
   quantity: number;
@@ -21,20 +20,21 @@ interface OrderDetailsProps {
 }
 
 export const Orders = () => {
-  const { getToShipOrders } = useGetToShipOrders();
+  const { getPendingOrDeliveryOrders } = useGetPendingOrDeliveryOrders();
   const { updateOrderStatus } = useUpdateOrderStatus();
+  const [queryOrderStatus, set_queryOrderStatus] = useState("pending");
 
   const [ordersData, set_ordersData] = useState([]);
 
   const effectOrder = async () => {
-    const order = await getToShipOrders();
+    const order = await getPendingOrDeliveryOrders(queryOrderStatus);
     set_ordersData(order);
+    console.log(order);
   };
 
-  useQuery({
-    queryKey: ["orders"],
-    queryFn: effectOrder,
-  });
+  useEffect(() => {
+    effectOrder();
+  }, [queryOrderStatus]);
 
   const approveOrDeclineOrder = async (status: string, order: any) => {
     try {
@@ -48,6 +48,16 @@ export const Orders = () => {
   return (
     <div className="admin-orders-container">
       <div className="overflow-x-auto">
+        <div className="flex justify-end pe-5">
+          <select
+            className="dropdown mt-1"
+            onChange={(e) => set_queryOrderStatus(e.target.value)}
+          >
+            <option value="pending">Pending</option>
+            <option value="delivery">Delivery</option>
+          </select>
+        </div>
+
         <table className="table table-xs">
           <thead>
             <tr>
@@ -101,6 +111,11 @@ export const Orders = () => {
             })}
           </tbody>
         </table>
+        {ordersData.length === 0 && (
+          <div className="text-center text-2xl font-bold">
+            No orders found...
+          </div>
+        )}
       </div>
     </div>
   );
