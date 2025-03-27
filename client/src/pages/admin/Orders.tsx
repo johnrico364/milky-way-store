@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 
 // Hooks
-import { useUpdateOrderStatus } from "../../hooks/order/useUpdateOrderStatus";
+import {
+  useUpdateDeliveryStatus,
+  useUpdateOrderStatus,
+} from "../../hooks/order/useUpdateOrder";
 import { useGetPendingOrDeliveryOrders } from "../../hooks/order/useGetOrder";
 
 interface OrderDetailsProps {
@@ -22,27 +25,32 @@ interface OrderDetailsProps {
 export const Orders = () => {
   const { getPendingOrDeliveryOrders } = useGetPendingOrDeliveryOrders();
   const { updateOrderStatus } = useUpdateOrderStatus();
-  const [queryOrderStatus, set_queryOrderStatus] = useState("pending");
+  const { updateDeliveryStatus } = useUpdateDeliveryStatus();
 
+  const [queryOrderStatus, set_queryOrderStatus] = useState("pending");
   const [ordersData, set_ordersData] = useState([]);
 
   const effectOrder = async () => {
     const order = await getPendingOrDeliveryOrders(queryOrderStatus);
     set_ordersData(order);
-    console.log(order);
   };
 
   useEffect(() => {
     effectOrder();
   }, [queryOrderStatus]);
 
-  const approveOrDeclineOrder = async (status: string, order: any) => {
+  const approveOrDeclineOrderFn = async (status: string, order: any) => {
     try {
       set_ordersData(
         ordersData.filter((orderData: any) => orderData !== order)
       );
       await updateOrderStatus(status, order);
     } catch (error) {}
+  };
+
+  const recieveOrderFn = async (order: any) => {
+    set_ordersData(ordersData.filter((orderData: any) => orderData !== order));
+    await updateDeliveryStatus(order?._id);
   };
 
   return (
@@ -58,7 +66,7 @@ export const Orders = () => {
           </select>
         </div>
 
-        <table className="table table-xs">
+        <table className="table">
           <thead>
             <tr>
               <th></th>
@@ -92,20 +100,35 @@ export const Orders = () => {
                   <td>{order.quantity}</td>
                   <td>{formatter(order.payment)}</td>
                   <td>{createdDate}</td>
-                  <td>
-                    <button
-                      className="button"
-                      onClick={() => approveOrDeclineOrder("approve", order)}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="button"
-                      onClick={() => approveOrDeclineOrder("decline", order)}
-                    >
-                      Decline
-                    </button>
-                  </td>
+                  {queryOrderStatus === "pending" ? (
+                    <td>
+                      <button
+                        className="button"
+                        onClick={() =>
+                          approveOrDeclineOrderFn("approve", order)
+                        }
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="button"
+                        onClick={() =>
+                          approveOrDeclineOrderFn("decline", order)
+                        }
+                      >
+                        Decline
+                      </button>
+                    </td>
+                  ) : (
+                    <td>
+                      <button
+                        className="button"
+                        onClick={() => recieveOrderFn(order)}
+                      >
+                        Received
+                      </button>
+                    </td>
+                  )}
                 </tr>
               );
             })}

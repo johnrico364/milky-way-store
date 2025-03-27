@@ -659,12 +659,13 @@
     background-color: var(--secondary1);
     color: white;
     border-radius: 10px;
-    @apply h-7 w-16 m-1 items-center justify-center;
+    @apply h-7 w-16 my-1 items-center justify-center;
   }
 
   .dropdown{
     color: var(--secondary1);
-    @apply outline-none font-semibold text-lg;
+    border: 2px solid;
+    @apply outline-none font-semibold text-lg rounded-md;
   }
 }
 
