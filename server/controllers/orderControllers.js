@@ -165,7 +165,7 @@ const getPendingOrDeliveryOrders = async (req, res) => {
   }
 };
 
-const updateOrderStatus = async (req, res) => {
+const updateApproveStatus = async (req, res) => {
   const { status, order } = req?.body;
 
   try {
@@ -185,6 +185,7 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
+
 module.exports = {
   orderProduct,
   getUserCarts,
@@ -193,5 +194,5 @@ module.exports = {
   cancelOrder,
   getUserOrderByStatus,
   getPendingOrDeliveryOrders,
-  updateOrderStatus,
+  updateApproveStatus,
 };

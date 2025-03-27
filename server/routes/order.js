@@ -16,7 +16,7 @@ router.post("/get-by-status", Controllers.getUserOrderByStatus); //user profile
 
 router.get("/get/pending-or-delivery/:status", Controllers.getPendingOrDeliveryOrders); //admin orders
 
-router.patch("/update-status", Controllers.updateOrderStatus);
+router.patch("/update-status", Controllers.updateApproveStatus); //admin order
 
 // ====================== DASHBOARD =======================
 
