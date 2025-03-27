@@ -14,9 +14,14 @@ router.delete("/cancel-order/:id", Controllers.cancelOrder); // user carts
 
 router.post("/get-by-status", Controllers.getUserOrderByStatus); //user profile
 
-router.get("/get/pending-or-delivery/:status", Controllers.getPendingOrDeliveryOrders); //admin orders
+router.get(
+  "/get/pending-or-delivery/:status",
+  Controllers.getPendingOrDeliveryOrders
+); //admin orders
 
 router.patch("/update-status", Controllers.updateApproveStatus); //admin order
+
+router.patch("/update/delivery-status", Controllers.updateDeliveryStatus); //admin order
 
 // ====================== DASHBOARD =======================
 

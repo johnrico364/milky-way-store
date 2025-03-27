@@ -185,6 +185,16 @@ const updateApproveStatus = async (req, res) => {
   }
 };
 
+const updateDeliveryStatus = async (req, res) => {
+  const { order_id } = req.body;
+  try {
+    await Order.findByIdAndUpdate(order_id, { isDelivered: true });
+
+    res.status(200);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 module.exports = {
   orderProduct,
@@ -195,4 +205,5 @@ module.exports = {
   getUserOrderByStatus,
   getPendingOrDeliveryOrders,
   updateApproveStatus,
+  updateDeliveryStatus,
 };
