@@ -1,8 +1,10 @@
 import { SalesGraph } from "../../components/graphs/SalesGraph";
 import { TopProductsGraph } from "../../components/graphs/TopProductsGraph";
 import { ProductStocks } from "../../components/graphs/ProductStocks";
+import { useNavigate } from "react-router-dom";
 
 export const Dashboard = () => {
+  const navigate = useNavigate();
   return (
     <div className="admin-dashboard-container">
       <div className="basis-11/12 mt-3">
@@ -49,7 +51,13 @@ export const Dashboard = () => {
           <div className="wrapper justify-center">
             <div className="basis-10/12">
               <div className="text-2xl flex justify-between items-center">
-                Transaction History <button className="view-button">View</button>
+                Transaction History{" "}
+                <button
+                  className="view-button"
+                  onClick={() => navigate("/admin/transaction")}
+                >
+                  View
+                </button>
               </div>
             </div>
           </div>

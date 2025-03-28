@@ -5,7 +5,6 @@ import {
   Routes,
   Route,
   Navigate,
-  useNavigate,
 } from "react-router-dom";
 import { Provider, useDispatch } from "react-redux";
 import { login, store } from "./store"; //Global States
@@ -27,6 +26,7 @@ import { Users } from "./pages/admin/Users";
 import { Settings } from "./pages/admin/Settings";
 import { OrderProduct } from "./pages/user/OrderProduct";
 import { ProductEdit } from "./pages/admin/ProductEdit";
+import { TransactionHistory } from "./pages/admin/TransactionHistory";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,11 +53,12 @@ function App() {
             <Route path="cart" element={<Cart />} />
             <Route path="profile" element={<Profile />} />
           </Route>
-          
+
           <Route path="/about" element={<About />} />
 
           <Route path="/admin" element={<NavbarAdmin />}>
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="transaction" element={<TransactionHistory />} />
             <Route path="orders" element={<Orders />} />
             <Route path="products" element={<Products />} />
             <Route path="products/edit/:details" element={<ProductEdit />} />
