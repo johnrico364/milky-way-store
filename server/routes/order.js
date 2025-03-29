@@ -23,6 +23,8 @@ router.patch("/update-status", Controllers.updateApproveStatus); //admin order
 
 router.patch("/update/delivery-status", Controllers.updateDeliveryStatus); //admin order
 
+router.get("/transaction-history", Controllers.getTransactionHistory);
+
 // ====================== DASHBOARD =======================
 
 router.get(
