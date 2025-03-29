@@ -19,6 +19,7 @@ const signupUser = async (req, res, next) => {
       {
         ...user,
         isAdmin: false,
+        isBlocked: false,
         picture: userImage,
       },
       userImage

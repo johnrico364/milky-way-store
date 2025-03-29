@@ -1,70 +1,82 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-  UserDetailsCard,
-  UserDetailsTable,
-} from "../../components/UserDetails";
+import { formatDistanceToNow } from "date-fns";
 import { useGetAllUsers } from "../../hooks/user/useGetAllUsers";
 import { useState } from "react";
+
+interface UserDetailsProps {
+  fname: string;
+  lname: string;
+  email: string;
+  picture: string;
+  address: string;
+  createdAt: string;
+}
 
 export const Users = () => {
   const { getAllUsers } = useGetAllUsers();
 
   const [userAccounts, set_userAccounts] = useState([]);
 
-  const effectFn = async () => {
+  const userEffect = async () => {
     const allUsers = await getAllUsers();
     set_userAccounts(allUsers);
   };
 
   useQuery({
     queryKey: ["profile", "admin"],
-    queryFn: effectFn,
+    queryFn: userEffect,
   });
 
   return (
     <div className="admin-users-container">
-      <div className="lg:basis-9/12 basis-11/12 pt-6">
-        <div className="lg:hidden block">
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-3 text-sm">
-            {userAccounts.map((user: any, index: number) => {
+      <div className="overflow-x-auto">
+        <table className="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Picture</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Created</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userAccounts.map((user: UserDetailsProps, i) => {
+              const createdDate = formatDistanceToNow(
+                new Date(user.createdAt),
+                {
+                  addSuffix: true,
+                }
+              );
               return (
-                <div className="flex flex-wrap data-card">
-                  <div className="basis-10/12">
-                    <UserDetailsCard data={user} index={index + 1} />
-                  </div>
-                  <div className="basis-2/12">
-                    <div className="flex">
-                      <button className="action-btn">Edit</button>
-                      <button className="action-btn">Delete</button>
-                    </div>
-                  </div>
-                </div>
+                <tr>
+                  <th>{i + 1}</th>
+                  <td>
+                    <img
+                      src={
+                        user?.picture &&
+                        require(`../../images/user/${user.picture}`)
+                      }
+                      width={50}
+                      alt="profile"
+                    />
+                  </td>
+                  <td>
+                    {user.fname} {user.lname}
+                  </td>
+                  <td>{user.email}</td>
+                  <td>{user.address}</td>
+                  <td>{createdDate}</td>
+                  <td>
+                    <button className="button" onClick={() => console.log('object')}>Block</button>
+                  </td>
+                </tr>
               );
             })}
-          </div>
-        </div>
-
-        <div className="lg:block hidden">
-          <div className="overflow-x-auto">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Picture</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Address</th>
-                  <th>Created</th>
-                </tr>
-              </thead>
-              <tbody>
-                {userAccounts.map((user: any, index: number) => {
-                  return <UserDetailsTable data={user} index={index + 1} />;
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
     </div>
   );

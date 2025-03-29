@@ -783,23 +783,14 @@
 
 /*============================================================== Admin Users ==================================================*/
 .admin-users-container {
-  background-color: #f5f5f5f1;
-  height: 94vh;
   font-family: var(--font1);
-  display: flex;
-  @apply flex-wrap justify-center;
+  @apply px-5 pt-5;
 
-  .data-card {
-    @apply bg-white px-3 py-1 rounded-lg shadow-md;
-  }
-  .action-btn {
-    font-family: var(--font2);
-    display: inline-flex;
-    background-color: var(--secondary1);
-    color: white;
-    height: 2.5rem;
-
-    @apply inline-flex text-white rounded-lg p-2 m-1;
+  .button{
+    background-color: var(--primary);
+    font-size: 1rem;
+    letter-spacing: 1px;
+    @apply text-white h-10 rounded font-semibold px-2;
   }
 }
 
