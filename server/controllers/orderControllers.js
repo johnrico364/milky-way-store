@@ -137,17 +137,27 @@ const getUserOrderByStatus = async (req, res) => {
   }
 };
 
-const getPendingOrDeliveryOrders = async (req, res) => {
+const getAllDeliveryByStatus = async (req, res) => {
   const status = req.params.status;
 
   try {
     let query = {
       isCarted: false,
-      isConfirmed: null,
+      isConfirmed: false,
       isDelivered: false,
     };
-    if (status === "pending") query.isConfirmed = false;
-    if (status === "delivery") query.isConfirmed = true;
+    switch (status) {
+      case "pending":
+        query.isConfirmed = false;
+        break;
+      case "delivery":
+        query.isConfirmed = true;
+        break;
+      case "history":
+        query.isConfirmed = true;
+        query.isDelivered = true;
+        break;
+    }
 
     const orders = await Order.find(query)
       .populate({
@@ -196,23 +206,6 @@ const updateDeliveryStatus = async (req, res) => {
   }
 };
 
-const getTransactionHistory = async (req, res) => {
-  try {
-    const orders = await Order.find({ isDelivered: true })
-      .populate({
-        path: "product",
-        select: "name price",
-      })
-      .populate({
-        path: "ordered_by",
-        select: "fname lname",
-      });
-    res.status(200).json({ orders });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
 module.exports = {
   orderProduct,
   getUserCarts,
@@ -220,8 +213,7 @@ module.exports = {
   checkoutCartedProducts,
   cancelOrder,
   getUserOrderByStatus,
-  getPendingOrDeliveryOrders,
+  getAllDeliveryByStatus,
   updateApproveStatus,
   updateDeliveryStatus,
-  getTransactionHistory,
 };
