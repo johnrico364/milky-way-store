@@ -37,7 +37,7 @@ export const useGetPendingOrDeliveryOrders = () => {
   const getPendingOrDeliveryOrders = async (status: string) => {
     try {
       const orders = await axios.get(
-        `/api/order/get/pending-or-delivery/${status}`
+        `/api/order/getall-by-status/${status}`
       );
       return orders?.data?.orders;
     } catch (error) {

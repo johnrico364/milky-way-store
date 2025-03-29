@@ -20,6 +20,7 @@ interface OrderDetailsProps {
     price: number;
   };
   createdAt: string;
+  updatedAt: string;
 }
 
 export const Orders = () => {
@@ -63,6 +64,7 @@ export const Orders = () => {
           >
             <option value="pending">Pending</option>
             <option value="delivery">Delivery</option>
+            <option value="history">History</option>
           </select>
         </div>
 
@@ -76,7 +78,11 @@ export const Orders = () => {
               <th>Quantity</th>
               <th>Total Amount</th>
               <th>Ordered</th>
-              <th>Actions</th>
+              {queryOrderStatus !== "history" ? (
+                <th>Actions</th>
+              ) : (
+                <th>Arrived</th>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -86,6 +92,10 @@ export const Orders = () => {
                 {
                   addSuffix: true,
                 }
+              );
+              const arriveDate = formatDistanceToNow(
+                new Date(order.updatedAt),
+                { addSuffix: true }
               );
               const formatter = new Intl.NumberFormat("en").format;
 
@@ -100,7 +110,7 @@ export const Orders = () => {
                   <td>{order.quantity}</td>
                   <td>{formatter(order.payment)}</td>
                   <td>{createdDate}</td>
-                  {queryOrderStatus === "pending" ? (
+                  {queryOrderStatus === "pending" && (
                     <td>
                       <button
                         className="button"
@@ -119,7 +129,8 @@ export const Orders = () => {
                         Decline
                       </button>
                     </td>
-                  ) : (
+                  )}
+                  {queryOrderStatus === "delivery" && (
                     <td>
                       <button
                         className="button"
@@ -127,6 +138,11 @@ export const Orders = () => {
                       >
                         Received
                       </button>
+                    </td>
+                  )}
+                  {queryOrderStatus === "history" && (
+                    <td>
+                     {arriveDate}
                     </td>
                   )}
                 </tr>
