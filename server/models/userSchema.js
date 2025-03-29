@@ -17,6 +17,7 @@ const userSchema = new Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     isAdmin: { type: Boolean, required: true },
+    isBlocked: { type: Boolean, required: true },
   },
   { timestamps: true }
 );
@@ -70,7 +71,6 @@ userSchema.statics.login = async function (user) {
 //otp
 userSchema.statics.sendOtp = async function (fname, email) {
   const randomOtp = Math.floor(Math.random() * 900000) + 100000;
-
 
   const sendOtp = {
     from: {
@@ -137,7 +137,10 @@ userSchema.statics.sendOtp = async function (fname, email) {
     throw Error("Fail to send OTP");
   }
 
-  return { otp: randomOtp, mess: "OTP sent successfully. Please check also in your spams" };
+  return {
+    otp: randomOtp,
+    mess: "OTP sent successfully. Please check also in your spams",
+  };
 };
 
 module.exports = mongoose.model("User", userSchema);
