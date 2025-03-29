@@ -46,22 +46,6 @@ export const Dashboard = () => {
             <ProductStocks />
           </div>
         </div>
-
-        <div className="all-transaction-container">
-          <div className="wrapper justify-center">
-            <div className="basis-10/12">
-              <div className="text-2xl flex justify-between items-center">
-                Transaction History{" "}
-                <button
-                  className="view-button"
-                  onClick={() => navigate("/admin/transaction")}
-                >
-                  View
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
