@@ -43,7 +43,7 @@ export const Login = () => {
 
       if (response?.response) {
         navigate(
-          response.user_status.isAdmin ? "/admin/dashboard" : "/user/product"
+          response.user_status.isAdmin ? "/admin/dashboard" : "/user/products"
         );
       }
     } catch (error) {}
@@ -54,7 +54,7 @@ export const Login = () => {
       const user = await axiosInstance.get("api/user/auth-token");
 
       if (user.data.mess) {
-        navigate(user.data.isAdmin ? "/admin/dashboard" : "/user/product");
+        navigate(user.data.isAdmin ? "/admin/dashboard" : "/user/products");
       }
     } catch (error: any) {
       console.log(error.response.data);

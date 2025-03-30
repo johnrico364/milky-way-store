@@ -54,14 +54,15 @@ export const Users = () => {
                 <tr>
                   <th>{i + 1}</th>
                   <td>
-                    <img
-                      src={
-                        user?.picture &&
-                        require(`../../images/user/${user.picture}`)
-                      }
-                      width={50}
-                      alt="profile"
-                    />
+                    <div className="profile-image">
+                      <img
+                        src={
+                          user?.picture &&
+                          require(`../../images/user/${user.picture}`)
+                        }
+                        alt="profile"
+                      />
+                    </div>
                   </td>
                   <td>
                     {user.fname} {user.lname}
@@ -70,7 +71,13 @@ export const Users = () => {
                   <td>{user.address}</td>
                   <td>{createdDate}</td>
                   <td>
-                    <button className="button" onClick={() => console.log('object')}>Block</button>
+                    <button className="button">Transactions</button>
+                    <button
+                      className="button"
+                      onClick={() => console.log("object")}
+                    >
+                      Block
+                    </button>
                   </td>
                 </tr>
               );

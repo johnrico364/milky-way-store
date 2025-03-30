@@ -45,7 +45,7 @@ export const NavbarUser = () => {
 
   const routes = [
     {
-      path: "product",
+      path: "products",
       name: "Products",
       icon: <FaBox className="me-1" />,
     },
@@ -64,83 +64,86 @@ export const NavbarUser = () => {
   return (
     <div>
       <div className="my-navbar">
-        <nav>
-          <ul
-            className="sidebar"
-            onClick={() => set_sidebar("none")}
-            style={{ display: sidebar }}
-          >
-            <li>
-              <span>
-                <FaXmark className="icons" />
-              </span>
-            </li>
-            {routes.map((route) => (
-              <li key={route.path} onClick={() => navigate(route.path)}>
-                <span
-                  className={
-                    location.pathname === `/user/${route.path}`
-                      ? "underline"
-                      : ""
-                  }
+        <div className="drawer">
+          <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+          <div className="drawer-content flex flex-col">
+            {/* Navbar */}
+            <div className="navbar w-full">
+              <div className="flex-none lg:hidden">
+                <label
+                  htmlFor="my-drawer-3"
+                  aria-label="open sidebar"
+                  className="btn btn-square btn-ghost"
                 >
-                  {route.icon}
-                  {route.name}
+                  <FaBars className=" text-[1.7rem]" />
+                </label>
+              </div>
+              <div className="mx-2 flex-1 px-2">
+                <span>
+                  <img
+                    src={require("../../images/assets/Logo.png")}
+                    alt="Logo"
+                    width={150}
+                  />
                 </span>
-              </li>
-            ))}
-            <li
-              onClick={() => {
-                localStorage.removeItem("user");
-                navigate("/login");
-              }}
-            >
-              <span>
-                <FaArrowRightFromBracket className="me-1" />
-                Logout
-              </span>
-            </li>
-          </ul>
-
-          <ul>
-            <li className="xl:ms-8 ms-2">
-              <span>
-                <img
-                  src={require("../../images/assets/Logo.png")}
-                  alt="Logo"
-                  width={170}
-                />
-              </span>
-            </li>
-            {routes.map((route) => (
-              <li
-                key={route.path}
-                className="hideOnMobile"
-                onClick={() => navigate(route.path)}
-              >
-                <span
-                  className={
-                    location.pathname === `/user/${route.path}`
-                      ? "underline"
-                      : ""
-                  }
-                >
-                  {route.icon}
-                  {route.name}
-                </span>
-              </li>
-            ))}
-            <li className="menu-button" onClick={() => set_sidebar("flex")}>
-              <span>
-                <FaBars className="icons" />
-              </span>
-            </li>
-          </ul>
-        </nav>
-
-        <div>
-          <Outlet />
+              </div>
+              <div className="hidden flex-none lg:block">
+                <ul className="menu menu-horizontal">
+                  {/* Navbar menu content here */}
+                  {routes.map((route, i) => {
+                    return (
+                      <li key={i}>
+                        <span
+                          className={
+                            location.pathname ===
+                            `/user/${route.name.toLocaleLowerCase()}`
+                              ? "selected-route"
+                              : ""
+                          }
+                          onClick={() => navigate(route.name.toLowerCase())}
+                        >
+                          {route.icon}
+                          {route.name}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+            {/* Page content here */}
+            <Outlet />
+          </div>
+          <div className="drawer-side">
+            <label
+              htmlFor="my-drawer-3"
+              aria-label="close sidebar"
+              className="drawer-overlay"
+            ></label>
+            <ul className="menu bg-base-200 min-h-full w-80 p-4">
+              {/* Sidebar content here */}
+              {routes.map((route, i) => {
+                return (
+                  <li key={i}>
+                    <span
+                      className={
+                        location.pathname ===
+                        `/user/${route.name.toLocaleLowerCase()}`
+                          ? "selected-route"
+                          : ""
+                      }
+                      onClick={() => navigate(route.name.toLowerCase())}
+                    >
+                      {route.icon}
+                      {route.name}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
+
         <div className="footer hidden sm:block">
           <div className="flex flex-wrap justify-center items-center w-full">
             <div className="basis-2/12 mt-3 hidden lg:block">
