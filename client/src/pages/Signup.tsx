@@ -63,7 +63,7 @@ export const Signup = () => {
     try {
       const response = await signupUser(userData);
 
-      response && navigate("/user/product");
+      response && navigate("/user/products");
     } catch (error) {}
   };
 
