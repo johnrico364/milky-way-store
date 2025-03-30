@@ -121,36 +121,24 @@ export const NavbarAdmin = () => {
             ></label>
             <ul className="menu bg-base-200 min-h-full w-80 p-4">
               {/* Sidebar content here */}
-              <li>
-                <span onClick={() => navigate("dashboard")}>
-                  <FaChartLine />
-                  Dashboard
-                </span>
-              </li>
-              <li>
-                <span onClick={() => navigate("orders")}>
-                  <FaClipboardList />
-                  Orders
-                </span>
-              </li>
-              <li>
-                <span onClick={() => navigate("products")}>
-                  <FaBox />
-                  Products
-                </span>
-              </li>
-              <li>
-                <span onClick={() => navigate("users")}>
-                  <FaUsers />
-                  Users
-                </span>
-              </li>
-              <li>
-                <span onClick={() => navigate("settings")}>
-                  <FaGears />
-                  Settings
-                </span>
-              </li>
+              {routes.map((route, i) => {
+                return (
+                  <li key={i}>
+                    <span
+                      className={
+                        location.pathname ===
+                        `/admin/${route.name.toLocaleLowerCase()}`
+                          ? "selected-route"
+                          : ""
+                      }
+                      onClick={() => navigate(route.name.toLowerCase())}
+                    >
+                      {route.icon}
+                      {route.name}
+                    </span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
