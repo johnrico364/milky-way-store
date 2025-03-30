@@ -287,10 +287,10 @@
 /*============================================================== Navbar ==================================================*/
 .my-navbar {
   font-family: var(--font2);
-  font-weight: 600;
 
   li {
     font-size: 1.1rem;
+    font-weight: 600;
   }
 
   .selected-route{
