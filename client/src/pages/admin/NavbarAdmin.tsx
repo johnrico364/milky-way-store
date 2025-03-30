@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   FaBars,
   FaBox,
@@ -12,6 +12,7 @@ import axios from "axios";
 
 export const NavbarAdmin = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const user = JSON.parse(localStorage.getItem("user") || `{"token":"null"}`);
 
@@ -35,6 +36,29 @@ export const NavbarAdmin = () => {
   useEffect(() => {
     checkAuthAdmin();
   });
+
+  const routes = [
+    {
+      name: "Dashboard",
+      icon: <FaChartLine />,
+    },
+    {
+      name: "Orders",
+      icon: <FaClipboardList />,
+    },
+    {
+      name: "Products",
+      icon: <FaBox />,
+    },
+    {
+      name: "Users",
+      icon: <FaUsers />,
+    },
+    {
+      name: "Settings",
+      icon: <FaGears />,
+    },
+  ];
 
   return (
     <div>
@@ -65,36 +89,24 @@ export const NavbarAdmin = () => {
               <div className="hidden flex-none lg:block">
                 <ul className="menu menu-horizontal">
                   {/* Navbar menu content here */}
-                  <li>
-                    <span onClick={() => navigate("dashboard")}>
-                      <FaChartLine />
-                      Dashboard
-                    </span>
-                  </li>
-                  <li>
-                    <span onClick={() => navigate("orders")}>
-                      <FaClipboardList />
-                      Orders
-                    </span>
-                  </li>
-                  <li>
-                    <span onClick={() => navigate("products")}>
-                      <FaBox />
-                      Products
-                    </span>
-                  </li>
-                  <li>
-                    <span onClick={() => navigate("users")}>
-                      <FaUsers />
-                      Users
-                    </span>
-                  </li>
-                  <li>
-                    <span onClick={() => navigate("settings")}>
-                      <FaGears />
-                      Settings
-                    </span>
-                  </li>
+                  {routes.map((route, i) => {
+                    return (
+                      <li key={i}>
+                        <span
+                          className={
+                            location.pathname ===
+                            `/admin/${route.name.toLocaleLowerCase()}`
+                              ? "selected-route"
+                              : ""
+                          }
+                          onClick={() => navigate(route.name.toLowerCase())}
+                        >
+                          {route.icon}
+                          {route.name}
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </div>

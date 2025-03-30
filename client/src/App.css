@@ -44,7 +44,6 @@
   background-color: var(--secondary2);
 }
 
-
 .wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -287,91 +286,25 @@
 
 /*============================================================== Navbar ==================================================*/
 .my-navbar {
-  position: relative;
   font-family: var(--font2);
+  font-weight: 600;
 
-  nav {
-    background-color: white;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
-  }
-  nav ul {
-    width: 100%;
-    list-style: none;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-  nav li {
-    height: 50px;
-    &:first-child {
-      margin-right: auto;
-    }
-  }
-  nav span {
-    color: var(--primary);
-    font-weight: 700;
+  li {
     font-size: 1.1rem;
-    letter-spacing: 0.5px;
-    height: 100%;
-    padding: 0 30px;
-    display: flex;
-    align-items: center;
-    margin-right: 0.4rem;
-    border-radius: 12px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #f0f0f0;
-    }
   }
 
-  .sidebar {
-    background-color: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px);
-    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
-    list-style: none;
-    display: none;
-
-    @apply fixed top-0 right-0 h-[100vh] w-[250px];
-    @apply flex-col items-start justify-start;
-  }
-  .sidebar li,
-  .sidebar a {
-    width: 100%;
-  }
-  .menu-button {
-    display: none;
-  }
-  .icons {
-    font-size: 1.6rem;
-  }
-
-  .carted-number{
-    font-size: 12px;
-    @apply pb-3;
-  }
-
-  @media (max-width: 1124px) {
-    .hideOnMobile {
-      display: none;
-    }
-    .menu-button {
-      display: block;
-    }
-  }
-  @media (max-width: 400px) {
-    .sidebar {
-      width: 100%;
-    }
+  .selected-route{
+    border-bottom: 2px solid var(--primary);
+    margin-left: 3px;
   }
 }
 
 /*============================================================== Navbar Footer ==================================================*/
-.footer{
+.footer {
   background-color: var(--secondary1);
   color: #e2e2e2;
   font-family: var(--font1);
-  font-size: .8rem !important;
+  font-size: 0.8rem !important;
   letter-spacing: 1px;
 
   @apply h-[20vh];
@@ -419,7 +352,7 @@
     margin-top: 3vh;
     height: 68vh;
     overflow: auto;
-    scrollbar-width: thin;  
+    scrollbar-width: thin;
 
     @apply lg:mx-[6.5rem] mx-2 grid xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4;
   }
@@ -641,7 +574,6 @@
   font-family: var(--font1);
   @apply px-5 pt-5;
 
-
   .button {
     display: flex;
     background-color: var(--secondary1);
@@ -650,7 +582,7 @@
     @apply h-7 w-16 my-1 items-center justify-center;
   }
 
-  .dropdown{
+  .dropdown {
     color: var(--secondary1);
     border: 2px solid;
     @apply outline-none font-semibold text-lg rounded-md;
@@ -786,11 +718,24 @@
   font-family: var(--font1);
   @apply px-5 pt-5;
 
-  .button{
-    background-color: var(--primary);
-    font-size: 1rem;
-    letter-spacing: 1px;
-    @apply text-white h-10 rounded font-semibold px-2;
+  .button {
+    display: flex;
+    background-color: var(--secondary1);
+    color: white;
+    border-radius: 10px;
+    @apply h-7 w-20 my-1 items-center justify-center;
+  }
+
+  .profile-image {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+  }
+
+  .profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
   }
 }
 
