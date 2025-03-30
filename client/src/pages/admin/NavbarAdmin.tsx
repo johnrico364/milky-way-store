@@ -1,20 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import {
-  FaArrowRightFromBracket,
   FaBars,
   FaBox,
   FaChartLine,
   FaClipboardList,
   FaGears,
   FaUsers,
-  FaXmark,
 } from "react-icons/fa6";
 import axios from "axios";
 
 export const NavbarAdmin = () => {
   const navigate = useNavigate();
-  const [sidebar, set_sidebar] = useState("none");
 
   const user = JSON.parse(localStorage.getItem("user") || `{"token":"null"}`);
 
@@ -42,108 +39,108 @@ export const NavbarAdmin = () => {
   return (
     <div>
       <div className="my-navbar">
-        <nav>
-          <ul
-            className="sidebar"
-            onClick={() => set_sidebar("none")}
-            style={{ display: sidebar }}
-          >
-            <li>
-              <span>
-                <FaXmark className="icons" />
-              </span>
-            </li>
-            <li onClick={() => navigate("dashboard")}>
-              <span>
-                <FaChartLine className="me-1" />
-                Dashboard
-              </span>
-            </li>
-            <li onClick={() => navigate("orders")}>
-              <span>
-                <FaClipboardList className="me-1" />
-                Orders
-              </span>
-            </li>
-            <li onClick={() => navigate("products")}>
-              <span>
-                <FaBox className="me-1" />
-                Products
-              </span>
-            </li>
-            <li onClick={() => navigate("users")}>
-              <span>
-                <FaUsers className="me-1" />
-                Users
-              </span>
-            </li>
-            <li onClick={() => navigate("settings")}>
-              <span>
-                <FaGears className="me-1" />
-                Settings
-              </span>
-            </li>
-            <li>
-              <span>
-                <FaArrowRightFromBracket className="me-1" />
-                Logout
-              </span>
-            </li>
-          </ul>
-
-          <ul>
-            <li className="xl:ms-8 ms-2">
-              <span>
-                <img
-                  src={require("../../images/assets/Logo.png")}
-                  alt="Logo"
-                  width={170}
-                />
-              </span>
-            </li>
-            <li className="hideOnMobile" onClick={() => navigate("dashboard")}>
-              <span>
-                <FaChartLine className="me-1" />
-                Dashboard
-              </span>
-            </li>
-            <li className="hideOnMobile" onClick={() => navigate("orders")}>
-              <span>
-                <FaClipboardList className="me-1" />
-                Orders
-              </span>
-            </li>
-            <li className="hideOnMobile" onClick={() => navigate("products")}>
-              <span>
-                <FaBox className="me-1" />
-                Products
-              </span>
-            </li>
-            <li className="hideOnMobile" onClick={() => navigate("users")}>
-              <span>
-                <FaUsers className="me-1" />
-                Users
-              </span>
-            </li>
-            <li
-              className="hideOnMobile xl:me-8 me-2"
-              onClick={() => navigate("settings")}
-            >
-              <span>
-                <FaGears className="me-1" />
-                Settings
-              </span>
-            </li>
-            <li className="menu-button" onClick={() => set_sidebar("flex")}>
-              <span>
-                <FaBars className="icons" />
-              </span>
-            </li>
-          </ul>
-        </nav>
-
-        <div>
-          <Outlet />
+        <div className="drawer">
+          <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+          <div className="drawer-content flex flex-col">
+            {/* Navbar */}
+            <div className="navbar w-full">
+              <div className="flex-none lg:hidden">
+                <label
+                  htmlFor="my-drawer-3"
+                  aria-label="open sidebar"
+                  className="btn btn-square btn-ghost"
+                >
+                  <FaBars className=" text-[1.7rem]" />
+                </label>
+              </div>
+              <div className="mx-2 flex-1 px-2">
+                <span>
+                  <img
+                    src={require("../../images/assets/Logo.png")}
+                    alt="Logo"
+                    width={150}
+                  />
+                </span>
+              </div>
+              <div className="hidden flex-none lg:block">
+                <ul className="menu menu-horizontal">
+                  {/* Navbar menu content here */}
+                  <li>
+                    <span onClick={() => navigate("dashboard")}>
+                      <FaChartLine />
+                      Dashboard
+                    </span>
+                  </li>
+                  <li>
+                    <span onClick={() => navigate("orders")}>
+                      <FaClipboardList />
+                      Orders
+                    </span>
+                  </li>
+                  <li>
+                    <span onClick={() => navigate("products")}>
+                      <FaBox />
+                      Products
+                    </span>
+                  </li>
+                  <li>
+                    <span onClick={() => navigate("users")}>
+                      <FaUsers />
+                      Users
+                    </span>
+                  </li>
+                  <li>
+                    <span onClick={() => navigate("settings")}>
+                      <FaGears />
+                      Settings
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            {/* Page content here */}
+            <Outlet />
+          </div>
+          <div className="drawer-side">
+            <label
+              htmlFor="my-drawer-3"
+              aria-label="close sidebar"
+              className="drawer-overlay"
+            ></label>
+            <ul className="menu bg-base-200 min-h-full w-80 p-4">
+              {/* Sidebar content here */}
+              <li>
+                <span onClick={() => navigate("dashboard")}>
+                  <FaChartLine />
+                  Dashboard
+                </span>
+              </li>
+              <li>
+                <span onClick={() => navigate("orders")}>
+                  <FaClipboardList />
+                  Orders
+                </span>
+              </li>
+              <li>
+                <span onClick={() => navigate("products")}>
+                  <FaBox />
+                  Products
+                </span>
+              </li>
+              <li>
+                <span onClick={() => navigate("users")}>
+                  <FaUsers />
+                  Users
+                </span>
+              </li>
+              <li>
+                <span onClick={() => navigate("settings")}>
+                  <FaGears />
+                  Settings
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
