@@ -21,5 +21,6 @@ router.post("/signup/otp", Controllers.otpSignupUser); //user
 router.get("/user-data/:token", Controllers.getUserdata); //user
 router.get("/auth-token", Controllers.authUserToken); //user
 router.get("/get/all-accounts", Controllers.getAllUserAccounts); //admin
+router.get('/order/transaction/:user_id', Controllers.getUserOrderTransaction) // admin order
 
 module.exports = router;

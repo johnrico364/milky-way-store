@@ -1,4 +1,5 @@
 const User = require("../models/userSchema");
+const Order = require("../models/orderSchema");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -98,11 +99,22 @@ const getAllUserAccounts = async (req, res) => {
   }
 };
 
+const getUserOrderTransaction = async (req, res) => {
+  const userId = req.params.user_id;
+  try {
+    const orders = await Order.find({ ordered_by: userId });
+    res.status(200).json({ orders });
+  } catch (error) {
+    res.status(400).json({ mess: error.message });
+  }
+};
+
 module.exports = {
   signupUser,
   loginUser,
   otpSignupUser,
   getUserdata,
   authUserToken,
-  getAllUserAccounts
+  getAllUserAccounts,
+  getUserOrderTransaction,
 };
