@@ -6,7 +6,7 @@ import {
   useUpdateDeliveryStatus,
   useUpdateOrderStatus,
 } from "../../hooks/order/useUpdateOrder";
-import { useGetPendingOrDeliveryOrders } from "../../hooks/order/useGetOrder";
+import { useGetAllOrdersByStatus } from "../../hooks/order/useGetOrder";
 
 interface OrderDetailsProps {
   quantity: number;
@@ -24,7 +24,7 @@ interface OrderDetailsProps {
 }
 
 export const Orders = () => {
-  const { getPendingOrDeliveryOrders } = useGetPendingOrDeliveryOrders();
+  const { getAllOrdersByStatus } = useGetAllOrdersByStatus();
   const { updateOrderStatus } = useUpdateOrderStatus();
   const { updateDeliveryStatus } = useUpdateDeliveryStatus();
 
@@ -32,7 +32,7 @@ export const Orders = () => {
   const [ordersData, set_ordersData] = useState([]);
 
   const effectOrder = async () => {
-    const order = await getPendingOrDeliveryOrders(queryOrderStatus);
+    const order = await getAllOrdersByStatus(queryOrderStatus);
     set_ordersData(order);
   };
 
