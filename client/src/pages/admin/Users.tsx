@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
-import { useGetAllUsers } from "../../hooks/user/useGetAllUsers";
+import { useGetAllUsers } from "../../hooks/user/useGetUsers";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface UserDetailsProps {
+  _id: string;
   fname: string;
   lname: string;
   email: string;
@@ -13,6 +15,7 @@ interface UserDetailsProps {
 }
 
 export const Users = () => {
+  const navigate = useNavigate();
   const { getAllUsers } = useGetAllUsers();
 
   const [userAccounts, set_userAccounts] = useState([]);
@@ -71,13 +74,13 @@ export const Users = () => {
                   <td>{user.address}</td>
                   <td>{createdDate}</td>
                   <td>
-                    <button className="button">Transactions</button>
                     <button
                       className="button"
-                      onClick={() => console.log("object")}
+                      onClick={() => navigate(`transactions/${user._id}`)}
                     >
-                      Block
+                      Transactions
                     </button>
+                    <button className="button">Block</button>
                   </td>
                 </tr>
               );

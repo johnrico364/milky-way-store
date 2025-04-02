@@ -36,9 +36,7 @@ export const useGetAllCarts = () => {
 export const useGetAllOrdersByStatus = () => {
   const getAllOrdersByStatus = async (status: string) => {
     try {
-      const orders = await axios.get(
-        `/api/order/getall-by-status/${status}`
-      );
+      const orders = await axios.get(`/api/order/getall-by-status/${status}`);
       return orders?.data?.orders;
     } catch (error) {
       console.log(error);
@@ -46,4 +44,18 @@ export const useGetAllOrdersByStatus = () => {
   };
 
   return { getAllOrdersByStatus };
+};
+
+// Admin Side | Users
+export const useGetUserOrdersTransaction = () => {
+  const getUserOrdersTransaction = async (user_id: string) => {
+    try {
+      const orders = await axios.get(`/api/user/order/transaction/${user_id}`);
+      return orders.data.orders
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { getUserOrdersTransaction };
 };
