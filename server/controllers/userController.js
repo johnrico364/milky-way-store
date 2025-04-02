@@ -102,7 +102,15 @@ const getAllUserAccounts = async (req, res) => {
 const getUserOrderTransaction = async (req, res) => {
   const userId = req.params.user_id;
   try {
-    const orders = await Order.find({ ordered_by: userId });
+    const orders = await Order.find({ ordered_by: userId })
+      .populate({
+        path: "product",
+        select: "name price",
+      })
+      .populate({
+        path: "ordered_by",
+        select: "fname lname",
+      });
     res.status(200).json({ orders });
   } catch (error) {
     res.status(400).json({ mess: error.message });
