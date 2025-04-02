@@ -1,27 +1,13 @@
 import { useEffect, useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 
+import { OrderDetailsProps } from "./interfaces/orderDetailsProps";
 // Hooks
 import {
   useUpdateDeliveryStatus,
   useUpdateOrderStatus,
 } from "../../hooks/order/useUpdateOrder";
 import { useGetAllOrdersByStatus } from "../../hooks/order/useGetOrder";
-
-interface OrderDetailsProps {
-  quantity: number;
-  payment: number;
-  ordered_by: {
-    fname: string;
-    lname: string;
-  };
-  product: {
-    name: string;
-    price: number;
-  };
-  createdAt: string;
-  updatedAt: string;
-}
 
 export const Orders = () => {
   const { getAllOrdersByStatus } = useGetAllOrdersByStatus();
@@ -140,11 +126,7 @@ export const Orders = () => {
                       </button>
                     </td>
                   )}
-                  {queryOrderStatus === "history" && (
-                    <td>
-                     {arriveDate}
-                    </td>
-                  )}
+                  {queryOrderStatus === "history" && <td>{arriveDate}</td>}
                 </tr>
               );
             })}

@@ -1,18 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
-import { useGetAllUsers } from "../../hooks/user/useGetUsers";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-interface UserDetailsProps {
-  _id: string;
-  fname: string;
-  lname: string;
-  email: string;
-  picture: string;
-  address: string;
-  createdAt: string;
-}
+import { useGetAllUsers } from "../../hooks/user/useGetUsers";
+import { UserDetailsProps } from "./interfaces/userDetailsProps";
 
 export const Users = () => {
   const navigate = useNavigate();

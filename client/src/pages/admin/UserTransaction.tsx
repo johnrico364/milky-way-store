@@ -1,22 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
-import { useGetUserOrdersTransaction } from "../../hooks/order/useGetOrder";
 
-interface orderDetailsProps {
-  quantity: number;
-  payment: number;
-  ordered_by: {
-    fname: string;
-    lname: string;
-  };
-  product: {
-    name: string;
-    price: number;
-  };
-  createdAt: string;
-  updatedAt: string;
-}
+import { OrderDetailsProps } from "./interfaces/orderDetailsProps";
+import { useGetUserOrdersTransaction } from "../../hooks/order/useGetOrder";
 
 export const UserTransaction = () => {
   const { id: user_id } = useParams();
@@ -51,7 +38,7 @@ export const UserTransaction = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order: orderDetailsProps, i) => {
+            {orders.map((order: OrderDetailsProps, i) => {
               const createdDate = formatDistanceToNow(
                 new Date(order.createdAt),
                 {
@@ -63,7 +50,6 @@ export const UserTransaction = () => {
                 { addSuffix: true }
               );
               const formatter = new Intl.NumberFormat("en").format;
-              console.log(order);
               return (
                 <tr key={i}>
                   <th>{i + 1}</th>

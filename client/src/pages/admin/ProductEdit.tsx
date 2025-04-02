@@ -4,19 +4,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { ProductDetails } from "./interfaces/productDetailsProps";
 // Custom Hooks
 import { useGetOneProduct } from "../../hooks/product/useGetProducts";
 import { useEditProducts } from "../../hooks/product/useEditProduct";
-
-interface ProductData {
-  _id: string;
-  name: string;
-  description: string;
-  supplier: string;
-  price: number;
-  stocks: number;
-  picture: string;
-}
 
 export const ProductEdit = () => {
   const { details } = useParams();
@@ -49,7 +40,7 @@ export const ProductEdit = () => {
     resolver: yupResolver(schema),
   });
 
-  const [productData, set_productData] = useState<ProductData>();
+  const [productData, set_productData] = useState<ProductDetails>();
   const [productImg, set_productImg] = useState<File | null>(null);
 
   const { getOneProduct } = useGetOneProduct();
@@ -68,10 +59,7 @@ export const ProductEdit = () => {
 
     productImg && productForm.append("image", productImg);
     productForm.append("product", JSON.stringify(form));
-    productForm.append(
-      "oldPic",
-      JSON.stringify(productData?.picture)
-    );
+    productForm.append("oldPic", JSON.stringify(productData?.picture));
 
     try {
       const response = await editProductAPI(productForm);
