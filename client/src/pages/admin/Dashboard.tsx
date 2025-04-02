@@ -1,10 +1,8 @@
 import { SalesGraph } from "../../components/graphs/SalesGraph";
 import { TopProductsGraph } from "../../components/graphs/TopProductsGraph";
 import { ProductStocks } from "../../components/graphs/ProductStocks";
-import { useNavigate } from "react-router-dom";
 
 export const Dashboard = () => {
-  const navigate = useNavigate();
   return (
     <div className="admin-dashboard-container">
       <div className="basis-11/12 mt-3">

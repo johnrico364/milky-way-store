@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
-  FaArrowRightFromBracket,
   FaBars,
   FaBox,
   FaCartShopping,
@@ -9,7 +8,6 @@ import {
   FaInstagram,
   FaTwitter,
   FaUserLarge,
-  FaXmark,
 } from "react-icons/fa6";
 import { GiMilkCarton } from "react-icons/gi";
 import axios from "axios";
@@ -17,7 +15,6 @@ import axios from "axios";
 export const NavbarUser = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [sidebar, set_sidebar] = useState("none");
 
   const user = JSON.parse(localStorage.getItem("user") || `{"token":"null"}`);
 
