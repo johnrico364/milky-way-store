@@ -1,19 +1,5 @@
-import React from "react";
 import { formatDistanceToNow } from "date-fns";
-
-interface OrderDetailsProps {
-  data: {
-    quantity: number;
-    payment: number;
-    createdAt: string;
-    product: {
-      name: string;
-      description: string;
-      price: number;
-      picture: string;
-    };
-  };
-}
+import { OrderDetailsProps } from "./interfaces/orderDetailsProps";
 
 export const OrderDetails: React.FC<OrderDetailsProps> = ({ data }) => {
   const formatter = new Intl.NumberFormat("en").format;

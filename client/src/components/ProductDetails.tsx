@@ -1,18 +1,4 @@
-import React from "react";
-
-interface ProductDetailsProps {
-  data: {
-    createdAt: any;
-    description: string;
-    isDeleted: boolean;
-    name: string;
-    picture: string;
-    price: number;
-    stocks: number;
-    supplier: string;
-    updatedAt: any;
-  };
-}
+import {ProductDetailsProps} from './interfaces/productDetailsProps'
 
 export const ProductDetails: React.FC<ProductDetailsProps> = ({ data }) => {
   const formatter = new Intl.NumberFormat("en").format;

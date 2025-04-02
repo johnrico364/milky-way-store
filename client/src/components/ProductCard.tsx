@@ -1,15 +1,6 @@
-import React from "react";
+import { ProductDetailsProps } from "./interfaces/productDetailsProps";
 
-interface ProductCardProps {
-  data: {
-    name: string;
-    description: string;
-    price: number;
-    picture: string;
-  };
-}
-
-export const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
+export const ProductCard: React.FC<ProductDetailsProps> = ({ data }) => {
   const formatter = new Intl.NumberFormat("en").format;
   return (
     <div className="items-card cursor-pointer">
