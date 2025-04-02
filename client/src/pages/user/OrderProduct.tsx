@@ -9,18 +9,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
+import { ProductDetails } from "./interfaces/productDetails";
 // Custom Hooks
 import { useGetOneProduct } from "../../hooks/product/useGetProducts";
 import { useOrderProduct } from "../../hooks/order/useOrderProduct";
 import { useParseToken } from "../../hooks/user/useParseToken";
-
-interface ProductData {
-  _id: string;
-  name: string;
-  description: string;
-  price: number;
-  picture: string;
-}
 
 export const OrderProduct = () => {
   const formatter = new Intl.NumberFormat("en").format;
@@ -32,7 +25,7 @@ export const OrderProduct = () => {
   const { orderOneProduct } = useOrderProduct();
   const { parseToken } = useParseToken();
 
-  const [productData, set_productData] = useState<ProductData>();
+  const [productData, set_productData] = useState<ProductDetails>();
   const [quantity, set_quantity] = useState<number>(1);
   const [userId, set_userId] = useState<string>("");
 
@@ -66,7 +59,7 @@ export const OrderProduct = () => {
     };
     const response = await orderOneProduct(orderForm);
 
-    console.log(response?.data.message)
+    console.log(response?.data.message);
 
     response?.success && navigate(`/user/${response?.data?.response}`);
   };

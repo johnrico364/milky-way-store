@@ -6,6 +6,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+import { UserDetails } from "./interfaces/userDetailsProps";
 // Hooks
 import { useParseToken } from "../../hooks/user/useParseToken";
 import { useGetUserOrderByStatus } from "../../hooks/order/useGetOrder";
@@ -13,21 +14,13 @@ import { useGetUserOrderByStatus } from "../../hooks/order/useGetOrder";
 // Components
 import { OrderDetails } from "../../components/OrderDetails";
 
-interface UserData {
-  _id: string;
-  address: string;
-  fname: string;
-  lname: string;
-  picture: string;
-}
-
 export const Profile = () => {
   const navigate = useNavigate();
 
   const { parseToken } = useParseToken();
   const { getUserOrder } = useGetUserOrderByStatus();
 
-  const [userData, set_userData] = useState<UserData>();
+  const [userData, set_userData] = useState<UserDetails>();
   const [ordersData, set_ordersData] = useState<string[]>([]);
   const [queryOrderStatus, set_queryOrderStatus] = useState("to-approve");
 
