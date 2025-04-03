@@ -115,7 +115,9 @@ const getUserOrderByStatus = async (req, res) => {
           ordered_by,
           isCarted: false,
           isConfirmed: true,
-        }).populate("product");
+        })
+          .populate("product")
+          .sort({ updatedAt: -1 });
         break;
 
       case "history":
@@ -124,7 +126,9 @@ const getUserOrderByStatus = async (req, res) => {
           isCarted: false,
           isConfirmed: true,
           isDelivered: true,
-        }).populate("product");
+        })
+          .populate("product")
+          .sort({ updatedAt: -1 });
         break;
 
       default:
@@ -167,7 +171,8 @@ const getAllDeliveryByStatus = async (req, res) => {
       .populate({
         path: "ordered_by",
         select: "fname lname",
-      });
+      })
+      .sort({ updatedAt: -1 });
 
     res.status(200).json({ orders });
   } catch (error) {
