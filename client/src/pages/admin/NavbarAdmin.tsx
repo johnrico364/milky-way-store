@@ -7,6 +7,7 @@ import {
   FaClipboardList,
   FaUsers,
 } from "react-icons/fa6";
+import { CgLogOut } from "react-icons/cg";
 import axios from "axios";
 
 export const NavbarAdmin = () => {
@@ -102,6 +103,17 @@ export const NavbarAdmin = () => {
                       </li>
                     );
                   })}
+                  <li>
+                    <span
+                      onClick={() => {
+                        localStorage.removeItem("user");
+                        navigate("/login");
+                      }}
+                    >
+                      <CgLogOut className="text-xl" />
+                      Logout
+                    </span>
+                  </li>
                 </ul>
               </div>
             </div>
