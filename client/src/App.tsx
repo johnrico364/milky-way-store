@@ -23,7 +23,6 @@ import { Dashboard } from "./pages/admin/Dashboard";
 import { Orders } from "./pages/admin/Orders";
 import { Products } from "./pages/admin/Products";
 import { Users } from "./pages/admin/Users";
-import { Settings } from "./pages/admin/Settings";
 import { OrderProduct } from "./pages/user/OrderProduct";
 import { ProductEdit } from "./pages/admin/ProductEdit";
 import { UserTransaction } from "./pages/admin/UserTransaction";
@@ -66,7 +65,6 @@ function App() {
               path="users/transactions/:id"
               element={<UserTransaction />}
             />
-            <Route path="settings" element={<Settings />} />
           </Route>
 
           <Route path="*" element={<NoPage />} />
