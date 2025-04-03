@@ -1,6 +1,7 @@
-const { trusted } = require("mongoose");
 const Order = require("../models/orderSchema");
 const Product = require("../models/productSchema");
+const User = require("../models/userSchema");
+const moment = require("moment");
 
 const getPast7DaysSales = async (req, res) => {
   const today = new Date();
@@ -95,8 +96,71 @@ const getProductStocks = async (req, res) => {
 
     const productNames = productData.map((product) => product.name);
     const productStocks = productData.map((product) => product.stocks);
-
     res.status(200).json({ names: productNames, stocks: productStocks });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const getDashboardSummary = async (req, res) => {
+  const todayStart = moment().startOf("day").toDate();
+  const todayEnd = moment().endOf("day").toDate();
+  const yesterdayStart = moment().subtract(1, "day").startOf("day").toDate();
+  const yesterdayEnd = moment().subtract(1, "day").endOf("day").toDate();
+  try {
+    const pendingOrders = await Order.countDocuments({
+      isCarted: false,
+      isConfirmed: false,
+    });
+    const users = await User.countDocuments({ isAdmin: false });
+    const products = await Product.countDocuments();
+
+    const todaySales = await Order.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: todayStart, $lte: todayEnd },
+          isDelivered: true,
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalSales: { $sum: "$payment" },
+        },
+      },
+    ]);
+
+    const yesterdaySales = await Order.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: yesterdayStart, $lte: yesterdayEnd },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalSales: { $sum: "$totalAmount" },
+        },
+      },
+    ]);
+
+    const todayTotal = todaySales.length > 0 ? todaySales[0].totalSales : 0;
+    const yesterdayTotal =
+      yesterdaySales.length > 0 ? yesterdaySales[0].totalSales : 0;
+
+    // Calculate the percentage change
+    let percentageChange = 0;
+    if (yesterdayTotal !== 0) {
+      percentageChange = ((todayTotal - yesterdayTotal) / yesterdayTotal) * 100;
+    } else if (todayTotal > 0) {
+      percentageChange = 100; // If yesterday had no sales but today has sales, it's a 100% increase
+    }
+
+    console.log(`Yesterday's Sales: $${yesterdayTotal}`);
+    console.log(`Today's Sales: $${todayTotal}`);
+    console.log(`Sales Change: ${percentageChange.toFixed(2)}%`);
+
+    res.status(200).json({ pendingOrders, users, products });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -106,4 +170,5 @@ module.exports = {
   getPast7DaysSales,
   getTopThreeProducts,
   getProductStocks,
+  getDashboardSummary,
 };

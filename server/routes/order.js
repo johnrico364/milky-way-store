@@ -24,7 +24,7 @@ router.patch("/update-status", Controllers.updateApproveStatus); //admin order
 router.patch("/update/delivery-status", Controllers.updateDeliveryStatus); //admin order
 
 // ====================== DASHBOARD =======================
-
+router.get('/get/dashboard-summary', DashboardControllers.getDashboardSummary)
 router.get(
   "/dashboard/get-past-7days-sales",
   DashboardControllers.getPast7DaysSales
