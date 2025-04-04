@@ -118,7 +118,7 @@ const getDashboardSummary = async (req, res) => {
     const todaySales = await Order.aggregate([
       {
         $match: {
-          createdAt: { $gte: todayStart, $lte: todayEnd },
+          updatedAt: { $gte: todayStart, $lte: todayEnd },
           isDelivered: true,
         },
       },
@@ -133,13 +133,14 @@ const getDashboardSummary = async (req, res) => {
     const yesterdaySales = await Order.aggregate([
       {
         $match: {
-          createdAt: { $gte: yesterdayStart, $lte: yesterdayEnd },
+          updatedAt: { $gte: yesterdayStart, $lte: yesterdayEnd },
+          isDelivered: true,
         },
       },
       {
         $group: {
           _id: null,
-          totalSales: { $sum: "$totalAmount" },
+          totalSales: { $sum: "$payment" },
         },
       },
     ]);
@@ -160,7 +161,14 @@ const getDashboardSummary = async (req, res) => {
     console.log(`Today's Sales: $${todayTotal}`);
     console.log(`Sales Change: ${percentageChange.toFixed(2)}%`);
 
-    res.status(200).json({ pendingOrders, users, products });
+    res
+      .status(200)
+      .json({
+        pendingOrders,
+        users,
+        products,
+        todaySales: percentageChange.toFixed(2),
+      });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
