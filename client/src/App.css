@@ -528,6 +528,7 @@
   }
 
   .info-card-container {
+    color: var(--primary);
     @apply grid gap-3 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mb-6;
   }
 
