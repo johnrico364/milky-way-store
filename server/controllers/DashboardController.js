@@ -157,14 +157,13 @@ const getDashboardSummary = async (req, res) => {
       percentageChange = 100; // If yesterday had no sales but today has sales, it's a 100% increase
     }
 
-    res
-      .status(200)
-      .json({
-        pendingOrders,
-        users,
-        products,
-        todaySales: percentageChange.toFixed(2),
-      });
+    console.log(typeof percentageChange.toFixed(2));
+    res.status(200).json({
+      pendingOrders,
+      users,
+      products,
+      todaySales: parseFloat(percentageChange.toFixed(2)),
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
