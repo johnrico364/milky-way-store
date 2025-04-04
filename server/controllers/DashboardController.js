@@ -29,7 +29,7 @@ const getPast7DaysSales = async (req, res) => {
       const sales = await Order.aggregate([
         {
           $match: {
-            createdAt: { $gte: pastDate, $lte: nextDate },
+            updatedAt: { $gte: pastDate, $lte: nextDate },
             isDelivered: true,
           },
         },
@@ -156,10 +156,6 @@ const getDashboardSummary = async (req, res) => {
     } else if (todayTotal > 0) {
       percentageChange = 100; // If yesterday had no sales but today has sales, it's a 100% increase
     }
-
-    console.log(`Yesterday's Sales: $${yesterdayTotal}`);
-    console.log(`Today's Sales: $${todayTotal}`);
-    console.log(`Sales Change: ${percentageChange.toFixed(2)}%`);
 
     res
       .status(200)
