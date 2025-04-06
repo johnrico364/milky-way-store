@@ -5,5 +5,6 @@ export interface UserDetailsProps {
   email: string;
   picture: string;
   address: string;
+  isBlocked: boolean;
   createdAt: string;
 }

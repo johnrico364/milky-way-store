@@ -18,6 +18,7 @@ const userSchema = new Schema(
     password: { type: String, required: true },
     isAdmin: { type: Boolean, required: true },
     isBlocked: { type: Boolean, required: true },
+    blockedAt: { type: Number },
   },
   { timestamps: true }
 );
@@ -49,6 +50,7 @@ userSchema.statics.signup = async function (user, userImage) {
   const hash = await bcrypt.hash(user.password, salt);
 
   const createUser = await this.create({ ...user, password: hash });
+  console.log(user);
 
   return createUser;
 };

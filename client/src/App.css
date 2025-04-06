@@ -727,6 +727,14 @@
     @apply h-7 w-20 my-1 items-center justify-center;
   }
 
+  .unblock-button {
+    display: flex;
+    background-color: var(--secondary2);
+    color: white;
+    border-radius: 10px;
+    @apply h-7 w-20 my-1 items-center justify-center;
+  }
+
   .profile-image {
     width: 60px;
     height: 60px;

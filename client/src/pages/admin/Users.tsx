@@ -2,14 +2,30 @@ import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { useGetAllUsers } from "../../hooks/user/useGetUsers";
 import { UserDetailsProps } from "./interfaces/userDetailsProps";
+import { useBlockUser } from "../../hooks/user/useBlockUser";
+import { useUnblockUser } from "../../hooks/user/useUnblockUser";
 
 export const Users = () => {
   const navigate = useNavigate();
+
   const { getAllUsers } = useGetAllUsers();
+  const { blockUser } = useBlockUser();
+  const { unblockUser } = useUnblockUser();
 
   const [userAccounts, set_userAccounts] = useState([]);
+
+  const blockUserFn = async (user_id: string) => {
+    await blockUser(user_id);
+    await userEffect();
+  };
+
+  const unblockUserFn = async (user_id: string) => {
+    await unblockUser(user_id);
+    await userEffect();
+  };
 
   const userEffect = async () => {
     const allUsers = await getAllUsers();
@@ -71,7 +87,55 @@ export const Users = () => {
                     >
                       Transactions
                     </button>
-                    <button className="button">Block</button>
+
+                    {user.isBlocked ? (
+                      <button
+                        className="unblock-button "
+                        onClick={() => unblockUserFn(user._id)}
+                      >
+                        Unblock
+                      </button>
+                    ) : (
+                      <button
+                        className="button"
+                        onClick={() => {
+                          const modal = document.getElementById(
+                            `my_modal_${i}`
+                          ) as HTMLDialogElement | null;
+                          if (modal) {
+                            modal.showModal();
+                          }
+                        }}
+                      >
+                        Block
+                      </button>
+                    )}
+
+                    <dialog
+                      id={`my_modal_${i}`}
+                      className="modal modal-bottom sm:modal-middle"
+                    >
+                      <div className="modal-box">
+                        <h3 className="font-bold text-lg">Confirmation</h3>
+                        <p className="py-4">
+                          You sure you want to block {user.fname} {user.lname}?
+                        </p>
+                        <div className="modal-action">
+                          <form method="dialog">
+                            {/* if there is a button in form, it will close the modal */}
+                            <div className="flex">
+                              <button className="button mr-1">Close</button>
+                              <button
+                                className="button"
+                                onClick={() => blockUserFn(user._id)}
+                              >
+                                Confirm
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </dialog>
                   </td>
                 </tr>
               );

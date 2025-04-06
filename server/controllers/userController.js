@@ -100,7 +100,7 @@ const getAllUserAccounts = async (req, res) => {
 };
 
 const getUserOrderTransaction = async (req, res) => {
-  const userId = req.params.user_id;
+  const userId = req.params.id;
   try {
     const orders = await Order.find({ ordered_by: userId, isConfirmed: true })
       .populate({
@@ -117,6 +117,36 @@ const getUserOrderTransaction = async (req, res) => {
   }
 };
 
+const blockUser = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    await User.findByIdAndUpdate(userId, {
+      isBlocked: true,
+      blockedAt: Date.now(),
+    });
+
+    res.status(200).json({ mess: "User was successfully blocked" });
+  } catch (error) {
+    res.status(400).json({ mess: error.message });
+  }
+};
+
+const unblockUser = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    await User.findByIdAndUpdate(userId, {
+      isBlocked: false,
+      blockedAt: null,
+    });
+
+    res.status(200).json({ mess: "User was successfully unblocked" });
+  } catch (error) {
+    res.status(400).json({ mess: error.message });
+  }
+};
+
 module.exports = {
   signupUser,
   loginUser,
@@ -125,4 +155,6 @@ module.exports = {
   authUserToken,
   getAllUserAccounts,
   getUserOrderTransaction,
+  blockUser,
+  unblockUser,
 };
