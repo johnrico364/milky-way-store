@@ -77,20 +77,10 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-const dataResetProduct = async (req, res) => {
-  try {
-    const data = await Product.deleteMany();
-    res.status(200).json({ data });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
 module.exports = {
   createProduct,
   getProduct,
   getOneProduct,
   updateProduct,
   deleteProduct,
-  dataResetProduct,
 };
