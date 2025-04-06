@@ -50,6 +50,7 @@ export const UserTransaction = () => {
                 { addSuffix: true }
               );
               const formatter = new Intl.NumberFormat("en").format;
+
               return (
                 <tr key={i}>
                   <th>{i + 1}</th>
@@ -58,7 +59,7 @@ export const UserTransaction = () => {
                   <td>{order.quantity}</td>
                   <td>{formatter(order.payment)}</td>
                   <td>{createdDate}</td>
-                  <td>{arriveDate}</td>
+                  <td>{order.isDelivered ? arriveDate : "on going..."}</td>
                 </tr>
               );
             })}
