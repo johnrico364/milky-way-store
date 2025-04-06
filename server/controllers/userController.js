@@ -102,7 +102,7 @@ const getAllUserAccounts = async (req, res) => {
 const getUserOrderTransaction = async (req, res) => {
   const userId = req.params.user_id;
   try {
-    const orders = await Order.find({ ordered_by: userId })
+    const orders = await Order.find({ ordered_by: userId, isConfirmed: true })
       .populate({
         path: "product",
         select: "name price",
