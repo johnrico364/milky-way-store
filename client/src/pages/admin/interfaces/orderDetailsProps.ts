@@ -11,4 +11,5 @@ export interface OrderDetailsProps {
   };
   createdAt: string;
   updatedAt: string;
+  isDelivered: boolean;
 }
