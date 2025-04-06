@@ -1,6 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useGetAllUsers } from "../../hooks/user/useGetUsers";
@@ -16,6 +15,7 @@ export const Users = () => {
   const { unblockUser } = useUnblockUser();
 
   const [userAccounts, set_userAccounts] = useState([]);
+  const [queryStatus, set_queryStatus] = useState("all");
 
   const blockUserFn = async (user_id: string) => {
     await blockUser(user_id);
@@ -28,17 +28,25 @@ export const Users = () => {
   };
 
   const userEffect = async () => {
-    const allUsers = await getAllUsers();
+    const allUsers = await getAllUsers(queryStatus);
     set_userAccounts(allUsers);
   };
 
-  useQuery({
-    queryKey: ["profile", "admin"],
-    queryFn: userEffect,
-  });
+  useEffect(() => {
+    userEffect();
+  }, [queryStatus]);
 
   return (
     <div className="admin-users-container">
+      <div className="flex justify-end pe-5">
+        <select
+          className="dropdown mt-1"
+          onChange={(e) => set_queryStatus(e.target.value)}
+        >
+          <option value="all">All</option>
+          <option value="blocked">Blocked</option>
+        </select>
+      </div>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
@@ -50,6 +58,7 @@ export const Users = () => {
               <th>Address</th>
               <th>Created</th>
               <th>Action</th>
+              {queryStatus === "blocked" && <th>Blocked</th>}
             </tr>
           </thead>
           <tbody>
@@ -60,6 +69,14 @@ export const Users = () => {
                   addSuffix: true,
                 }
               );
+
+              let blockDate = "";
+              if (user.blockedAt) {
+                blockDate = formatDistanceToNow(new Date(user.blockedAt), {
+                  addSuffix: true,
+                });
+              }
+
               return (
                 <tr>
                   <th>{i + 1}</th>
@@ -81,13 +98,14 @@ export const Users = () => {
                   <td>{user.address}</td>
                   <td>{createdDate}</td>
                   <td>
-                    <button
-                      className="button"
-                      onClick={() => navigate(`transactions/${user._id}`)}
-                    >
-                      Transactions
-                    </button>
-
+                    {queryStatus === "all" && (
+                      <button
+                        className="button"
+                        onClick={() => navigate(`transactions/${user._id}`)}
+                      >
+                        Transactions
+                      </button>
+                    )}
                     {user.isBlocked ? (
                       <button
                         className="unblock-button "
@@ -137,11 +155,20 @@ export const Users = () => {
                       </div>
                     </dialog>
                   </td>
+                  {user.isBlocked && queryStatus === "blocked" && (
+                    <td>{blockDate}</td>
+                  )}
+                  
                 </tr>
               );
             })}
           </tbody>
         </table>
+        {userAccounts.length === 0 && (
+          <div className="text-center text-2xl font-bold">
+            No users found...
+          </div>
+        )}
       </div>
     </div>
   );

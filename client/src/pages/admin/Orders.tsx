@@ -42,18 +42,18 @@ export const Orders = () => {
 
   return (
     <div className="admin-orders-container">
+      <div className="flex justify-end pe-5">
+        <select
+          className="dropdown mt-1"
+          onChange={(e) => set_queryOrderStatus(e.target.value)}
+        >
+          <option value="pending">Pending</option>
+          <option value="delivery">Delivery</option>
+          <option value="history">History</option>
+        </select>
+      </div>
+      
       <div className="overflow-x-auto">
-        <div className="flex justify-end pe-5">
-          <select
-            className="dropdown mt-1"
-            onChange={(e) => set_queryOrderStatus(e.target.value)}
-          >
-            <option value="pending">Pending</option>
-            <option value="delivery">Delivery</option>
-            <option value="history">History</option>
-          </select>
-        </div>
-
         <table className="table">
           <thead>
             <tr>

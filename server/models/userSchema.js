@@ -50,7 +50,6 @@ userSchema.statics.signup = async function (user, userImage) {
   const hash = await bcrypt.hash(user.password, salt);
 
   const createUser = await this.create({ ...user, password: hash });
-  console.log(user);
 
   return createUser;
 };
@@ -127,7 +126,7 @@ userSchema.statics.sendOtp = async function (fname, email) {
             If you did not request this, please ignore this email.
           </p>
           <div style="font-size: 12px; color: #777; margin-top: 20px">
-            &copy; 2025 Your Company. All rights reserved.
+            &copy; 2025 Milky Way. All rights reserved.
           </div>
         </div>
         `,

@@ -2,6 +2,7 @@ const User = require("../models/userSchema");
 const Order = require("../models/orderSchema");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const transporter = require("../middleware/emailConfig");
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
@@ -91,8 +92,19 @@ const authUserToken = async (req, res) => {
 };
 
 const getAllUserAccounts = async (req, res) => {
+  const status = req.params.status;
+
+  let query = {};
+  switch (status) {
+    case "all":
+      query = { isAdmin: false };
+      break;
+    case "blocked":
+      query = { isAdmin: false, isBlocked: true };
+  }
+
   try {
-    const users = await User.find({ isAdmin: false });
+    const users = await User.find(query);
     res.status(200).json({ users });
   } catch (error) {
     res.status(400).json({ mess: error.message });
@@ -119,8 +131,77 @@ const getUserOrderTransaction = async (req, res) => {
 
 const blockUser = async (req, res) => {
   const userId = req.params.id;
+  const user = await User.findById(userId).select("email");
+
+  const emailMess = {
+    from: {
+      name: "Milky Way E-Shop",
+      address: process.env.USER,
+    },
+    to: [user.email],
+    subject: "Account Blocked",
+    html: `
+      <div
+        style="
+          max-width: 600px;
+          margin: 40px auto;
+          background-color: #ffffff;
+          padding: 30px;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        "
+      >
+        <div
+          style="
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+          "
+        >
+          <h2>Account Notification</h2>
+        </div>
+        <div style="padding-top: 20px; color: #333333; line-height: 1.6">
+          <p>Dear User,</p>
+
+          <p>
+            We wanted to inform you that
+            <span style="color: #d9534f; font-weight: bold"
+              >your account has been temporarily blocked</span
+            >.
+          </p>
+
+          <p>
+            This may be due to unusual activity or a violation of our terms of
+            service. Our team is currently reviewing the situation and will
+            restore access as soon as possible, if appropriate.
+          </p>
+
+          <p>
+            If you believe this is a mistake or need further assistance, please
+            contact our support team.
+          </p>
+
+          <p>Thank you for your understanding,</p>
+          <p><strong>The Support Team</strong></p>
+        </div>
+        <div
+          style="
+            margin-top: 30px;
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+          "
+        >
+          &copy; 2025 Milky Way. All rights reserved.
+        </div>
+      </div>
+    
+    `,
+  };
 
   try {
+    await transporter.sendMail(emailMess);
+
     await User.findByIdAndUpdate(userId, {
       isBlocked: true,
       blockedAt: Date.now(),
@@ -134,8 +215,76 @@ const blockUser = async (req, res) => {
 
 const unblockUser = async (req, res) => {
   const userId = req.params.id;
+  const user = await User.findById(userId).select("email");
+
+  const emailMess = {
+    from: {
+      name: "Milky Way E-Shop",
+      address: process.env.USER,
+    },
+    to: [user.email],
+    subject: "Account Unblocked",
+    html: `
+      <div
+        style="
+          max-width: 600px;
+          margin: 40px auto;
+          background-color: #ffffff;
+          padding: 30px;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        "
+      >
+        <div
+          style="
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+          "
+        >
+          <h2>Account Update</h2>
+        </div>
+        <div style="padding-top: 20px; color: #333333; line-height: 1.6">
+          <p>Dear User,</p>
+
+          <p>
+            We’re happy to inform you that
+            <span style="color: #28a745; font-weight: bold"
+              >your account has been unblocked</span
+            >
+            and full access has been restored.
+          </p>
+
+          <p>
+            You can now log in and continue using our services as usual. We
+            appreciate your patience and cooperation throughout the process.
+          </p>
+
+          <p>
+            If you have any further questions or concerns, feel free to reach out
+            to our support team at any time.
+          </p>
+
+          <p>Best regards,</p>
+          <p><strong>The Support Team</strong></p>
+        </div>
+        <div
+          style="
+            margin-top: 30px;
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+          "
+        >
+          &copy; 2025 Milky Way. All rights reserved.
+        </div>
+      </div>
+    `
+  }
 
   try {
+    await transporter.sendMail(emailMess);
+
     await User.findByIdAndUpdate(userId, {
       isBlocked: false,
       blockedAt: null,

@@ -20,7 +20,7 @@ router.post("/login", Controllers.loginUser);
 router.post("/signup/otp", Controllers.otpSignupUser); //user
 router.get("/user-data/:token", Controllers.getUserdata); //user
 router.get("/auth-token", Controllers.authUserToken); //user
-router.get("/get/all-accounts", Controllers.getAllUserAccounts); //admin
+router.get("/get/all-accounts/:status", Controllers.getAllUserAccounts); //admin
 router.get("/order/transaction/:id", Controllers.getUserOrderTransaction); // admin order
 router.get("/block/:id", Controllers.blockUser); // admin
 router.get('/unblock/:id', Controllers.unblockUser) //admin

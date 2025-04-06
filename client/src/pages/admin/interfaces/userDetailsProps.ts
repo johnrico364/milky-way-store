@@ -7,4 +7,5 @@ export interface UserDetailsProps {
   address: string;
   isBlocked: boolean;
   createdAt: string;
+  blockedAt: number;
 }

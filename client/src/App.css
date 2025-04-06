@@ -719,6 +719,12 @@
   font-family: var(--font1);
   @apply px-5 pt-5;
 
+  .dropdown {
+    color: var(--secondary1);
+    border: 2px solid;
+    @apply outline-none font-semibold text-lg rounded-md;
+  }
+
   .button {
     display: flex;
     background-color: var(--secondary1);
