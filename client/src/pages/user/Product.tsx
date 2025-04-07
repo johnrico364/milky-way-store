@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useGetAllProducts } from "../../hooks/product/useGetProducts";
 import { ProductCard } from "../../components/ProductCard";
 
-
 export const Product = () => {
   const navigate = useNavigate();
   const [allProducts, set_allProducts] = useState<any>([]);

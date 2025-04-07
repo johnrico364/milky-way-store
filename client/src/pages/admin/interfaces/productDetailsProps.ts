@@ -6,4 +6,5 @@ export interface ProductDetails {
   price: number;
   stocks: number;
   picture: string;
+  createdAt: string;
 }

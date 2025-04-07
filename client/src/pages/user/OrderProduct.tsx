@@ -90,10 +90,39 @@ export const OrderProduct = () => {
             </div>
             <div className="product-quantity mt-3">
               <span className="mr-4">Quantity:</span>
-              <button onClick={() => set_quantity(quantity + 1)}>
+              <button
+                onClick={() => {
+                  if (
+                    productData?.stocks !== undefined &&
+                    productData?.stocks <= quantity
+                  )
+                    return;
+
+                  set_quantity(quantity + 1);
+                }}
+              >
                 <FaPlus className="icon mr-3" />
               </button>
-              {quantity}
+              <input
+                className="w-5"
+                type="number"
+                value={quantity}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  const parsedValue = parseInt(value);
+
+                  if (
+                    productData?.stocks !== undefined &&
+                    productData?.stocks < parsedValue
+                  )
+                    return;
+
+                  if (value === "" || isNaN(parsedValue))
+                    return set_quantity(1);
+
+                  set_quantity(parseInt(value));
+                }}
+              />
               <button
                 onClick={() => quantity > 1 && set_quantity(quantity - 1)}
               >

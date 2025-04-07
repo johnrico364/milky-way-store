@@ -293,7 +293,7 @@
     font-weight: 600;
   }
 
-  .selected-route{
+  .selected-route {
     border-bottom: 2px solid var(--primary);
     margin-left: 3px;
   }
@@ -370,6 +370,12 @@
   height: 92vh;
   color: var(--secondary1);
   @apply flex-wrap justify-center;
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
   .brake-row {
     border: 2px solid var(--secondary1);
@@ -592,24 +598,10 @@
 
 /*============================================================== Admin Products ==================================================*/
 .admin-product-container {
-  display: flex;
-  @apply flex-wrap justify-center;
-
-  .product-data-container {
-    height: 87vh;
-    @apply mt-3 md:px-5 px-2 overflow-auto;
-    @apply xl:basis-8/12 basis-11/12;
-  }
-  .data-wrapper {
-    display: flex;
-    border-bottom: 1px solid var(--secondary1);
-
-    @apply flex-wrap p-2 mb-3;
-  }
-
-  .icon {
-    color: var(--secondary1);
-    @apply text-4xl cursor-pointer;
+  .add-product {
+    background-color: var(--secondary1);
+    color: white;
+    @apply p-2 w-[8rem] cursor-pointer text-center rounded-md;
   }
 
   .button {
@@ -617,8 +609,14 @@
     background-color: var(--secondary1);
     color: white;
     border-radius: 10px;
-    @apply h-10 w-16 m-1 items-center justify-center;
+    @apply h-8 w-16 my-1 items-center justify-center;
     @apply max-sm:text-sm max-sm:h-7;
+  }
+
+  .dropdown {
+    color: var(--secondary1);
+    border: 2px solid;
+    @apply outline-none font-semibold text-lg rounded-md;
   }
 
   .modal {

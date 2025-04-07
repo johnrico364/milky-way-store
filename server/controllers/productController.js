@@ -24,7 +24,10 @@ const createProduct = async (req, res) => {
 
 const getProduct = async (req, res) => {
   try {
-    const products = await Product.find({ isDeleted: false }).sort({
+    const products = await Product.find({
+      isDeleted: false,
+      stocks: { $gt: 0 },
+    }).sort({
       createdAt: -1,
     });
 
