@@ -23,11 +23,25 @@ const createProduct = async (req, res) => {
 };
 
 const getProduct = async (req, res) => {
+  const status = req.params.status;
+  let query;
+
+  switch (status) {
+    case "all":
+      query = {
+        isDeleted: false,
+        stocks: { $gt: 0 },
+      };
+      break;
+    case "deleted":
+      query = {
+        $or: [{ isDeleted: true }, { stocks: 0 }],
+      };
+      break;
+  }
+  console.log(status);
   try {
-    const products = await Product.find({
-      isDeleted: false,
-      stocks: { $gt: 0 },
-    }).sort({
+    const products = await Product.find(query).sort({
       createdAt: -1,
     });
 

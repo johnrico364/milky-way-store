@@ -1,12 +1,12 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
 
-import { FaBoxOpen, FaCirclePlus } from "react-icons/fa6";
+import { FaBoxOpen } from "react-icons/fa6";
 
 // Custom Hooks
 import { useDeleteProduct } from "../../hooks/product/useDeleteProduct";
@@ -47,6 +47,7 @@ export const Products = () => {
   const [productImg, set_productImg] = useState<File | null>(null);
   const [successMess, set_successMess] = useState<string>("");
   const [allProducts, set_allProducts] = useState([]);
+  const [queryStatus, set_queryStatus] = useState("all");
 
   const { addProduct, exception, set_exception } = useAddProduct();
   const { getAllProducts } = useGetAllProducts();
@@ -69,32 +70,20 @@ export const Products = () => {
 
   const deleteProductFn = async (_id: any) => {
     await deleteProductAPI(_id);
-    productData.refetch();
+    effectProduct();
   };
 
   const effectProduct = async () => {
-    const products = await getAllProducts();
+    const products = await getAllProducts(queryStatus);
     set_allProducts(products);
   };
 
-  const productData = useQuery({
-    queryKey: ["product"],
-    queryFn: () => {
-      effectProduct();
-      return true;
-    },
-  });
+  useEffect(() => {
+    effectProduct();
+  }, [queryStatus]);
 
   return (
     <div className="admin-product-container">
-      {productData.isLoading && <div className="text-6xl">Loading...</div>}
-
-      {allProducts.length === 0 && (
-        <div className="text-3xl font-semibold text-center font-mono">
-          No products found...
-        </div>
-      )}
-
       <div className="px-5 pt-3">
         <div className="flex justify-end my-3">
           <label htmlFor="add_modal" className="add-product">
@@ -104,7 +93,12 @@ export const Products = () => {
       </div>
 
       <div className="flex justify-end pe-5 mt-3">
-        <select className="dropdown">
+        <select
+          className="dropdown"
+          onChange={(e) => {
+            set_queryStatus(e.target.value);
+          }}
+        >
           <option value="all">All</option>
           <option value="deleted">Deleted</option>
         </select>
@@ -119,10 +113,10 @@ export const Products = () => {
               <th>Image</th>
               <th>Name</th>
               <th>Price</th>
-              <th>Stocks</th>
+              {queryStatus !== "deleted" && <th>Stocks</th>}
               <th>Supplier</th>
               <th>Created At</th>
-              <th>Actions</th>
+              {queryStatus !== "deleted" && <th>Actions</th>}
             </tr>
           </thead>
           <tbody>
@@ -146,65 +140,73 @@ export const Products = () => {
                   </td>
                   <td>{product.name}</td>
                   <td>{product.price}</td>
-                  <td>{product.stocks}</td>
+                  {queryStatus !== "deleted" && <td>{product.stocks}</td>}
                   <td>{product.supplier}</td>
                   <td>{createdDate}</td>
-                  <td>
-                    <button
-                      className="button"
-                      onClick={() =>
-                        navigate(`edit/${product.name}-${product._id}`)
-                      }
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="button"
-                      onClick={() => {
-                        const modal = document.getElementById(
-                          `delete_modal_${i}`
-                        ) as HTMLDialogElement | null;
-                        if (modal) {
-                          modal.showModal();
+                  {queryStatus !== "deleted" && (
+                    <td>
+                      <button
+                        className="button"
+                        onClick={() =>
+                          navigate(`edit/${product.name}-${product._id}`)
                         }
-                      }}
-                    >
-                      Delete
-                    </button>
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="button"
+                        onClick={() => {
+                          const modal = document.getElementById(
+                            `delete_modal_${i}`
+                          ) as HTMLDialogElement | null;
+                          if (modal) {
+                            modal.showModal();
+                          }
+                        }}
+                      >
+                        Delete
+                      </button>
 
-                    <dialog id={`delete_modal_${i}`} className="modal">
-                      <div className="modal-box">
-                        <h3 className="font-bold text-lg">
-                          Delete Confirmation!
-                        </h3>
-                        <p className="py-4">
-                          <b>Name: {product.name}</b>
-                          <br />
-                          Press "Confirm" to delete this product. Once deleted
-                          you cannot restore it back.
-                        </p>
-                        <div className="modal-action">
-                          <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
-                            <div className="flex">
-                              <button className="button mr-1">Cancel</button>
-                              <button
-                                className="button"
-                                onClick={() => deleteProductFn(product?._id)}
-                              >
-                                Confirm
-                              </button>
-                            </div>
-                          </form>
+                      <dialog id={`delete_modal_${i}`} className="modal">
+                        <div className="modal-box">
+                          <h3 className="font-bold text-lg">
+                            Delete Confirmation!
+                          </h3>
+                          <p className="py-4">
+                            <b>Name: {product.name}</b>
+                            <br />
+                            Press "Confirm" to delete this product. Once deleted
+                            you cannot restore it back.
+                          </p>
+                          <div className="modal-action">
+                            <form method="dialog">
+                              {/* if there is a button in form, it will close the modal */}
+                              <div className="flex">
+                                <button className="button mr-1">Cancel</button>
+                                <button
+                                  className="button"
+                                  onClick={() => deleteProductFn(product?._id)}
+                                >
+                                  Confirm
+                                </button>
+                              </div>
+                            </form>
+                          </div>
                         </div>
-                      </div>
-                    </dialog>
-                  </td>
+                      </dialog>
+                    </td>
+                  )}
                 </tr>
               );
             })}
           </tbody>
         </table>
+
+        {allProducts.length === 0 && (
+          <div className="text-3xl font-semibold text-center font-mono">
+            No products found...
+          </div>
+        )}
       </div>
 
       <input type="checkbox" id="add_modal" className="modal-toggle" />

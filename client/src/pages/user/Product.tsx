@@ -23,7 +23,7 @@ export const Product = () => {
   const productData = useQuery({
     queryKey: ["product"],
     queryFn: async () => {
-      const products = await getAllProducts();
+      const products = await getAllProducts("all");
       set_allProducts(products);
     },
   });
