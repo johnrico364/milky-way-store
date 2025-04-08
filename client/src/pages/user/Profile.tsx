@@ -50,7 +50,7 @@ export const Profile = () => {
       <div className="flex">
         <div className="details-side">
           <div className="w-1/3">
-            <FaUserGear className="ms-auto text-3xl" />
+            <FaUserGear className="ms-auto text-3xl cursor-pointer" />
           </div>
           <div className="p-img">
             <img
@@ -89,9 +89,15 @@ export const Profile = () => {
 
             <div className="card-container flex">
               <div className="basis-full">
-                {ordersData?.map((order: any) => {
+                {ordersData.length === 0 && (
+                  <div className="text-center text-2xl font-bold">
+                    No orders found...
+                  </div>
+                )}
+
+                {ordersData?.map((order: any, i) => {
                   return (
-                    <div>
+                    <div key={i}>
                       <OrderDetails data={order} />
                     </div>
                   );
