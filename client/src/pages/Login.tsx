@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const Login = () => {
   const schema = yup.object().shape({
@@ -15,8 +15,8 @@ export const Login = () => {
       .required("Email required."),
     password: yup
       .string()
-      .min(8, "Password is too short")
-      .required("Provide a password"),
+      .required("Password required")
+      .min(8, "Password is too short"),
   });
 
   const {
@@ -35,18 +35,28 @@ export const Login = () => {
   });
 
   const navigate = useNavigate();
-  const { loginUser, isLoading } = useLogin();
+  const { loginUser } = useLogin();
+
+  const [loginError, set_loginError] = useState("");
 
   const loginFn = async (form: any) => {
-    try {
-      const response = await loginUser(form);
+    const response = await loginUser(form);
 
-      if (response?.response) {
+    switch (response?.status) {
+      case 200:
         navigate(
-          response.user_status.isAdmin ? "/admin/dashboard" : "/user/products"
+          response?.user_status?.isAdmin ? "/admin/dashboard" : "/user/products"
         );
-      }
-    } catch (error) {}
+        break;
+      case 400:
+        set_loginError(response?.error);
+
+        const modal = document.getElementById(
+          "error_modal"
+        ) as HTMLDialogElement | null;
+
+        if (modal) modal.showModal();
+    }
   };
 
   const checkAuthUser = async () => {
@@ -104,7 +114,7 @@ export const Login = () => {
                   <div className="error-m">{errors.password?.message}</div>
                 </div>
                 <div className="mt-6 text-end">
-                  <button className="btn">Login</button>
+                  <button className="button">Login</button>
                 </div>
                 <div className="create-acc" onClick={() => navigate("/signup")}>
                   Create Account?
@@ -114,6 +124,19 @@ export const Login = () => {
           </div>
         </div>
       </div>
+
+      <dialog id="error_modal" className="modal">
+        <div className="modal-box">
+          <form method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+          <h3 className="font-bold text-lg">Login Error!</h3>
+          <p className="py-4">{loginError}</p>
+        </div>
+      </dialog>
     </div>
   );
 };

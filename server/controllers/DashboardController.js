@@ -112,8 +112,12 @@ const getDashboardSummary = async (req, res) => {
       isCarted: false,
       isConfirmed: false,
     });
+
     const users = await User.countDocuments({ isAdmin: false });
-    const products = await Product.countDocuments();
+    const products = await Product.countDocuments({
+      isDeleted: false,
+      stocks: 0,
+    });
 
     const todaySales = await Order.aggregate([
       {

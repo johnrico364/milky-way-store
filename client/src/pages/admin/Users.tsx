@@ -120,9 +120,7 @@ export const Users = () => {
                           const modal = document.getElementById(
                             `my_modal_${i}`
                           ) as HTMLDialogElement | null;
-                          if (modal) {
-                            modal.showModal();
-                          }
+                          if (modal) modal.showModal();
                         }}
                       >
                         Block
@@ -158,7 +156,6 @@ export const Users = () => {
                   {user.isBlocked && queryStatus === "blocked" && (
                     <td>{blockDate}</td>
                   )}
-                  
                 </tr>
               );
             })}

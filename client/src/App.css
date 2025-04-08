@@ -100,7 +100,7 @@
     }
   }
 
-  .btn {
+  .button {
     font-family: var(--font2);
     font-weight: 700;
     font-size: 1.2rem;
@@ -108,7 +108,7 @@
     width: 85%;
     height: 2.7rem;
     background-color: var(--primary);
-    color: rgb(211, 206, 206);
+    color: white;
     border-radius: 22px;
 
     &:hover {
