@@ -73,6 +73,11 @@ userSchema.statics.login = async function (user) {
 userSchema.statics.sendOtp = async function (fname, email) {
   const randomOtp = Math.floor(Math.random() * 900000) + 100000;
 
+  const exist = await this.findOne({ email: email });
+  if (exist) {
+    throw Error("Email is already taken");
+  }
+
   const sendOtp = {
     from: {
       name: "Milky Way E-Shop",

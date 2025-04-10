@@ -9,9 +9,14 @@ export const useOtp = () => {
     try {
       const otp = await axios.post("api/user/signup/otp", user);
       set_isLoading(false);
-      return otp.data;
+      return { status: 200, otp: otp.data.otp, mess: otp.data.mess };
     } catch (error: any) {
-      return { otp: 9237489783278, mess: error.response.data.error };
+      set_isLoading(false);
+      return {
+        status: 400,
+        otp: 9237489783278,
+        error: error.response.data.error,
+      };
     }
   };
 

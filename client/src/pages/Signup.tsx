@@ -38,7 +38,7 @@ export const Signup = () => {
   });
   const navigate = useNavigate();
   const { getOtp, isLoading: otpLoading } = useOtp();
-  const { signupUser, isLoading: signupLoading } = useSignup();
+  const { signupUser } = useSignup();
 
   const [noOtp, set_noOtp] = useState(true);
   const [_iOtp, set_iOtp] = useState(7898756752323);
@@ -47,12 +47,17 @@ export const Signup = () => {
   const [email, set_email] = useState<string>("");
   const [otp, set_otp] = useState<number>(0);
   const [imgFile, set_imgFile] = useState<File | null>(null);
+  const [signupError, set_signupError] = useState("");
 
   const signupFn = async (form: any) => {
+    const modal = document.getElementById(
+      "error_modal"
+    ) as HTMLDialogElement | null;
     const userData = new FormData();
 
     if (otp !== _iOtp) {
-      alert("OTP don't match");
+      set_signupError("Error: OTP don't match");
+      modal?.showModal();
       return;
     }
     if (imgFile) {
@@ -60,23 +65,38 @@ export const Signup = () => {
     }
     userData.append("user", JSON.stringify(form));
 
-    try {
-      const response = await signupUser(userData);
+    const response = await signupUser(userData);
 
-      response && navigate("/user/products");
-    } catch (error) {}
+    switch (response.status) {
+      case 200:
+        navigate("/user/products");
+        break;
+      case 400:
+        set_signupError(`Error: ${response.error}`);
+        modal?.showModal();
+        break;
+    }
   };
 
   const sendOtp = async () => {
+    const modal = document.getElementById(
+      "error_modal"
+    ) as HTMLDialogElement | null;
+
     if (email === "" || fname === "") {
-      alert(" Please provide all the details ! ");
+      set_signupError("Error: Please provide all the details ! ");
+
+      modal?.showModal();
       return;
     }
 
-    const { otp, mess } = await getOtp({ fname, email });
+    const { otp, mess, status } = await getOtp({ fname, email });
+    set_signupError(mess);
+    modal?.showModal();
+
+    console.log(otp);
     set_noOtp(otpLoading);
     set_iOtp(otp);
-    alert(mess);
   };
 
   return (
@@ -171,7 +191,7 @@ export const Signup = () => {
                   <div className="error-m">{errors.password?.message}</div>
                 </div>
                 <div className="mt-3 text-end">
-                  <button className="btn" disabled={noOtp || otpLoading}>
+                  <button className="button" disabled={noOtp || otpLoading}>
                     Sign Up
                   </button>
                 </div>
@@ -181,6 +201,20 @@ export const Signup = () => {
               </div>
             </form>
           </div>
+
+          {/* You can open the modal using document.getElementById('ID').showModal() method */}
+          <dialog id="error_modal" className="modal">
+            <div className="modal-box">
+              <form method="dialog">
+                {/* if there is a button in form, it will close the modal */}
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                  ✕
+                </button>
+              </form>
+              <h3 className="font-bold text-lg">Signup Notification!</h3>
+              <p className="py-4">{signupError}</p>
+            </div>
+          </dialog>
         </div>
 
         <div className="bg-side"></div>
