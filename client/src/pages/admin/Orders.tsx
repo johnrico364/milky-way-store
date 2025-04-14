@@ -52,7 +52,7 @@ export const Orders = () => {
           <option value="history">History</option>
         </select>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="table">
           <thead>

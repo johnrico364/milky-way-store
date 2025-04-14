@@ -25,15 +25,11 @@ export const Profile = () => {
   const [queryOrderStatus, set_queryOrderStatus] = useState("to-approve");
 
   const effectProf = async () => {
-    try {
-      const user = await parseToken();
-      set_userData(user);
+    const user = await parseToken();
+    set_userData(user);
 
-      const orders = await getUserOrder(user?._id, queryOrderStatus);
-      set_ordersData(orders);
-    } catch (error: any) {
-      console.log(error);
-    }
+    const orders = await getUserOrder(user?._id, queryOrderStatus);
+    set_ordersData(orders);
   };
 
   useEffect(() => {
@@ -48,9 +44,12 @@ export const Profile = () => {
   return (
     <div className="profile-container">
       <div className="flex">
-        <div className="details-side">
+        <div className="details-side hidden">
           <div className="w-1/3">
-            <FaUserGear className="ms-auto text-3xl cursor-pointer" />
+            <FaUserGear
+              className="ms-auto text-3xl cursor-pointer hover:scale-110"
+              onClick={() => navigate(`/user/profile/edit/${userData?._id}`)}
+            />
           </div>
           <div className="p-img">
             <img
@@ -79,7 +78,7 @@ export const Profile = () => {
         <div className="data-side">
           <div className="xl:w-10/12 lg:px-0 w-full px-2  mx-auto">
             <select
-              className="border-2 rounded-md"
+              className="dropdown"
               onChange={(e) => set_queryOrderStatus(e.target.value)}
             >
               <option value={"to-approve"}>To Approve</option>

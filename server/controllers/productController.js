@@ -39,7 +39,7 @@ const getProduct = async (req, res) => {
       };
       break;
   }
-  console.log(status);
+  
   try {
     const products = await Product.find(query).sort({
       createdAt: -1,

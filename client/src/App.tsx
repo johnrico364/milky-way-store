@@ -26,6 +26,7 @@ import { Users } from "./pages/admin/Users";
 import { OrderProduct } from "./pages/user/OrderProduct";
 import { ProductEdit } from "./pages/admin/ProductEdit";
 import { UserTransaction } from "./pages/admin/UserTransaction";
+import { EditUser } from "./pages/user/EditUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function App() {
             <Route path="product/:details" element={<OrderProduct />} />
             <Route path="cart" element={<Cart />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="profile/edit/:id" element={<EditUser />} />
           </Route>
 
           <Route path="/about" element={<About />} />
