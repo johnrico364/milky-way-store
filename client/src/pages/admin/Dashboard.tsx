@@ -47,11 +47,17 @@ export const Dashboard = () => {
           <div className="info-card">
             <div className="title">Today Sales</div>
             <div className="value">
-              {summary.todaySales > 0 ? <div className="text-green-500">
-                {summary.todaySales} % <FaArrowUp className="inline" />
-              </div>: <div className="text-red-500">
-                {summary.todaySales} % <FaArrowDown className="inline" />
-              </div>}           
+              {summary.todaySales > 0 ? (
+                <div className="text-green-500">
+                  {summary.todaySales} %{" "}
+                  <FaArrowUp className="inline" aria-hidden="true" />
+                </div>
+              ) : (
+                <div className="text-red-500">
+                  {summary.todaySales} %{" "}
+                  <FaArrowDown className="inline" aria-hidden="true" />
+                </div>
+              )}
             </div>
           </div>
         </div>
