@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { IconType } from "react-icons";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 import { SalesGraph } from "../../components/graphs/SalesGraph";
