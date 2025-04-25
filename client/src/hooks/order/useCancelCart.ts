@@ -3,7 +3,9 @@ import axios from "axios";
 export const useCancelCart = () => {
   const cancelCart = async (order_id: string) => {
     try {
-      await axios.delete(`/api/order/cancel-order/${order_id}`);
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_BASEURL}/api/order/cancel-order/${order_id}`
+      );
 
       window.location.reload();
     } catch (error) {

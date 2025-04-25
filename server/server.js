@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors')
 
 //routes
 const userRoutes = require("./routes/user");
@@ -7,6 +8,13 @@ const productRoutes = require("./routes/product");
 const orderRoutes = require("./routes/order");
 
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 const _dbURI = "mongodb://localhost:27017/milky-way";

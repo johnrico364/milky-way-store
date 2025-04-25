@@ -297,6 +297,11 @@
     border-bottom: 2px solid var(--primary);
     margin-left: 3px;
   }
+
+  .admin-logout {
+    background-color: var(--primary);
+    @apply ml-3 text-white rounded-lg hover:scale-110;
+  }
 }
 
 /*============================================================== Navbar Footer ==================================================*/
@@ -549,32 +554,31 @@
     @apply file-input file-input-bordered w-full max-w-xs mt-2 ml-2;
   }
 
-  .user-input{
+  .user-input {
     border: 2px solid var(--secondary2);
     outline: 0;
     @apply w-full h-10 rounded-lg pl-2 max-sm:text-sm;
   }
 
-  .errors{
+  .errors {
     color: red;
-    font-size: .85rem;
+    font-size: 0.85rem;
     @apply mb-3;
   }
 
-  .button{
+  .button {
     color: white;
     letter-spacing: 1px;
     height: 2.5rem;
     border-radius: 10px;
     @apply font-semibold mt-3 mr-3 max-sm:text-sm w-16;
   }
-  .cancel-btn{
+  .cancel-btn {
     background-color: var(--secondary2);
   }
-  .save-btn{
+  .save-btn {
     background-color: var(--secondary1);
   }
-
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ADMIN SIDE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

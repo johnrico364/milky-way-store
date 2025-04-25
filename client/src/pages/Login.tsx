@@ -61,7 +61,9 @@ export const Login = () => {
 
   const checkAuthUser = async () => {
     try {
-      const user = await axiosInstance.get("api/user/auth-token");
+      const user = await axiosInstance.get(
+        `${process.env.REACT_APP_BACKEND_BASEURL}/api/user/auth-token`
+      );
 
       if (user.data.mess) {
         navigate(user.data.isAdmin ? "/admin/dashboard" : "/user/products");

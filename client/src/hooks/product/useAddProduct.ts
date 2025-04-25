@@ -6,7 +6,10 @@ export const useAddProduct = () => {
 
   const addProduct = async (newProduct: any) => {
     try {
-      const product = await axios.post("/api/product/create", newProduct);
+      const product = await axios.post(
+        `${process.env.REACT_APP_BACKEND_BASEURL}/api/product/create`,
+        newProduct
+      );
       console.log(product);
 
       window.location.reload();

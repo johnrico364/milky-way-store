@@ -7,7 +7,9 @@ export const useParseToken = () => {
 
   const parseToken = async () => {
     try {
-      const userData = await axios.get(`/api/user/user-data/${userToken.token}`);
+      const userData = await axios.get(
+        `${process.env.REACT_APP_BACKEND_BASEURL}/api/user/user-data/${userToken.token}`
+      );
       return userData?.data?.user;
     } catch (error) {
       console.log(error);

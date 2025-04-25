@@ -7,7 +7,10 @@ export const useOtp = () => {
   const getOtp = async (user: any | null) => {
     set_isLoading(true);
     try {
-      const otp = await axios.post("api/user/signup/otp", user);
+      const otp = await axios.post(
+        `${process.env.REACT_APP_BACKEND_BASEURL}/api/user/signup/otp`,
+        user
+      );
       set_isLoading(false);
       return { status: 200, otp: otp.data.otp, mess: otp.data.mess };
     } catch (error: any) {

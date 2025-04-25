@@ -4,7 +4,7 @@ export const useGetPast7Days = () => {
   const getPastSevenDaysSales = async () => {
     try {
       const salesData = await axios.get(
-        "/api/order/dashboard/get-past-7days-sales"
+        `${process.env.REACT_APP_BACKEND_BASEURL}/api/order/dashboard/get-past-7days-sales`
       );
 
       return { status: 200, data: salesData.data };

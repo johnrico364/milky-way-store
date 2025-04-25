@@ -24,7 +24,9 @@ export const NavbarAdmin = () => {
 
   const checkAuthAdmin = async () => {
     try {
-      const user = await axiosInstance.get("/api/user/auth-token");
+      const user = await axiosInstance.get(
+        `${process.env.REACT_APP_BACKEND_BASEURL}/api/user/auth-token`
+      );
 
       user.data.isAdmin || navigate("/user/product");
     } catch (error: any) {
@@ -103,13 +105,13 @@ export const NavbarAdmin = () => {
                       </li>
                     );
                   })}
-                  <li>
+                  <li className="border admin-logout">
                     <span
                       onClick={() => {
                         localStorage.removeItem("user");
                         navigate("/login");
                       }}
-                    >
+                    > 
                       <CgLogOut className="text-xl" />
                       Logout
                     </span>

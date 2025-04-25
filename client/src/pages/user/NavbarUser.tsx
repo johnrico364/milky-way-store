@@ -26,7 +26,7 @@ export const NavbarUser = () => {
 
   const checkAuthUser = async () => {
     try {
-      const user = await axiosInstance.get("/api/user/auth-token");
+      const user = await axiosInstance.get(`${process.env.REACT_APP_BACKEND_BASEURL}/api/user/auth-token`);
 
       console.log(user.data.isAdmin);
       user.data.isAdmin && navigate("/admin/dashboard");

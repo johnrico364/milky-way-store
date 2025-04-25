@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../store";
 
@@ -8,7 +7,10 @@ export const useSignup = () => {
 
   const signupUser = async (newUser: any) => {
     try {
-      const user: any = await axios.post("/api/user/signup", newUser);
+      const user: any = await axios.post(
+        `${process.env.REACT_APP_BACKEND_BASEURL}/api/user/signup`,
+        newUser
+      );
 
       localStorage.setItem("user", JSON.stringify(user.data));
       dispatch(login(user.data));

@@ -4,10 +4,13 @@ import axios from "axios";
 export const useGetUserOrderByStatus = () => {
   const getUserOrder = async (ordered_by: string, status: string) => {
     try {
-      const order = await axios.post(`/api/order/get-by-status`, {
-        ordered_by,
-        status,
-      });
+      const order = await axios.post(
+        `${process.env.REACT_APP_BACKEND_BASEURL}/api/order/get-by-status`,
+        {
+          ordered_by,
+          status,
+        }
+      );
 
       return order?.data?.orders;
     } catch (error) {
@@ -22,7 +25,9 @@ export const useGetUserOrderByStatus = () => {
 export const useGetAllCarts = () => {
   const getAllCarts = async (ordered_by: string) => {
     try {
-      const carts = await axios.get(`/api/order/cart/${ordered_by}`);
+      const carts = await axios.get(
+        `${process.env.REACT_APP_BACKEND_BASEURL}/api/order/cart/${ordered_by}`
+      );
       return carts?.data?.carts;
     } catch (error) {
       console.log(error);
@@ -36,7 +41,9 @@ export const useGetAllCarts = () => {
 export const useGetAllOrdersByStatus = () => {
   const getAllOrdersByStatus = async (status: string) => {
     try {
-      const orders = await axios.get(`/api/order/getall-by-status/${status}`);
+      const orders = await axios.get(
+        `${process.env.REACT_APP_BACKEND_BASEURL}/api/order/getall-by-status/${status}`
+      );
       return orders?.data?.orders;
     } catch (error) {
       console.log(error);
@@ -50,8 +57,10 @@ export const useGetAllOrdersByStatus = () => {
 export const useGetUserOrdersTransaction = () => {
   const getUserOrdersTransaction = async (user_id: string) => {
     try {
-      const orders = await axios.get(`/api/user/order/transaction/${user_id}`);
-      return orders.data.orders
+      const orders = await axios.get(
+        `${process.env.REACT_APP_BACKEND_BASEURL}/api/user/order/transaction/${user_id}`
+      );
+      return orders.data.orders;
     } catch (error) {
       console.log(error);
     }
