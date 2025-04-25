@@ -1,8 +1,13 @@
-const User = require("../models/userSchema");
-const Order = require("../models/orderSchema");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const path = require("path");
+const fs = require("fs");
+const bcrypt = require("bcrypt");
+const validator = require("validator");
+
 const transporter = require("../middleware/emailConfig");
+const User = require("../models/userSchema");
+const Order = require("../models/orderSchema");
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
@@ -88,6 +93,51 @@ const authUserToken = async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ mess: false });
+  }
+};
+
+const updateUserProfile = async (req, res) => {
+  const id = req.params.id;
+  const newUser = JSON.parse(req.body.user);
+  const userImg = req.file?.filename;
+  const oldImg = JSON.parse(req.body.oldPic);
+
+  console.log(newUser);
+
+  try {
+    const oldImagePath = path.join("../client/src/images/user", oldImg);
+
+    if (newUser.newPassword) {
+      // password validation
+      if (!validator.isStrongPassword(newUser.newPassword)) {
+        if (userImg) {
+          const newImagePath = path.join("../client/src/images/user/", userImg);
+          fs.unlink(newImagePath, (err) => console.log("deleted image"));
+        }
+
+        throw Error(
+          "Password must 8 letters long, contains one capital letter, and one special character"
+        );
+      }
+
+      //Hashing and salting password
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(newUser.newPassword, salt);
+
+      newUser.password = hash;
+      delete newUser.newPassword;
+    }
+
+    if (userImg) fs.unlink(oldImagePath, (err) => console.log("deleted image"));
+
+    const user = await User.findByIdAndUpdate(id, {
+      ...newUser,
+      picture: userImg,
+    });
+
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };
 
@@ -279,8 +329,8 @@ const unblockUser = async (req, res) => {
           &copy; 2025 Milky Way. All rights reserved.
         </div>
       </div>
-    `
-  }
+    `,
+  };
 
   try {
     await transporter.sendMail(emailMess);
@@ -302,6 +352,7 @@ module.exports = {
   otpSignupUser,
   getUserdata,
   authUserToken,
+  updateUserProfile,
   getAllUserAccounts,
   getUserOrderTransaction,
   blockUser,
