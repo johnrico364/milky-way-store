@@ -23,12 +23,16 @@ export const ProductEdit = () => {
     supplier: yup.string().required("Supplier required"),
     price: yup
       .number()
-      .transform((value, origvalue) => (origvalue.trim() === "" ? 1 : value))
+      .transform((value, origvalue) =>
+        typeof origvalue === "string" && origvalue.trim() === "" ? 1 : value
+      )
       .integer("Whole number only")
-      .min(100, "Price too low"),
+      .min(5, "Price too low"),
     stocks: yup
       .number()
-      .transform((value, origvalue) => (origvalue.trim() === "" ? 1 : value))
+      .transform((value, origvalue) =>
+        typeof origvalue === "string" && origvalue.trim() === "" ? 1 : value
+      )
       .integer("Whole number only")
       .min(10, "Stocks too low"),
   });
@@ -36,23 +40,19 @@ export const ProductEdit = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const [productData, set_productData] = useState<ProductDetails>();
-  const [productImg, set_productImg] = useState<File | null>(null);
-
   const { getOneProduct } = useGetOneProduct();
   const { editProductAPI } = useEditProducts(_id);
 
-  const getProductData = async () => {
-    const data = await getOneProduct(_id);
-    set_productData(data);
-  };
-  useEffect(() => {
-    getProductData();
-  });
+  const [productData, set_productData] = useState<ProductDetails>();
+  const [productImg, set_productImg] = useState<File | null>(null);
+  const [previewProductImg, set_previewProductImg] = useState<
+    String | undefined
+  >("");
 
   const saveProductFn = async (form: any) => {
     const productForm = new FormData();
@@ -61,11 +61,38 @@ export const ProductEdit = () => {
     productForm.append("product", JSON.stringify(form));
     productForm.append("oldPic", JSON.stringify(productData?.picture));
 
-    try {
-      const response = await editProductAPI(productForm);
-      response && navigate("/admin/products");
-    } catch (error) {}
+    const response = await editProductAPI(productForm);
+    response && navigate("/admin/products");
   };
+
+  const imageChangeFn = (e: any) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+      set_previewProductImg(previewUrl);
+    } else {
+      set_previewProductImg(productData?.picture);
+    }
+    set_productImg(e.target.files ? e.target.files[0] : null);
+  };
+
+  const getProductData = async () => {
+    const data = await getOneProduct(_id);
+
+    set_productData(data);
+    set_previewProductImg(data.picture);
+    reset({
+      name: data.name,
+      description: data.description,
+      supplier: data.supplier,
+      price: data.price,
+      stocks: data.stocks,
+    });
+  };
+  useEffect(() => {
+    getProductData();
+  }, []);
 
   return (
     <div className="product-edit-container">
@@ -75,8 +102,10 @@ export const ProductEdit = () => {
             <div className="p-img">
               <img
                 src={
-                  productData?.picture
-                    ? require(`../../images/product/${productData?.picture}`)
+                  previewProductImg
+                    ? previewProductImg.startsWith("blob:")
+                      ? previewProductImg
+                      : require(`../../images/product/${previewProductImg}`)
                     : ""
                 }
                 alt="product"
@@ -89,37 +118,35 @@ export const ProductEdit = () => {
               <form onSubmit={handleSubmit(saveProductFn)}>
                 <div className="flex flex-wrap gap-3">
                   <div className="basis-full">
+                    <div>Edit image</div>
                     <input
                       className="img-input"
                       type="file"
                       accept="image/*"
-                      onChange={(e) => {
-                        set_productImg(
-                          e.target.files ? e.target.files[0] : null
-                        );
-                      }}
+                      onChange={imageChangeFn}
                     />
                   </div>
                   <div className="basis-full">
+                    <div>Name:</div>
                     <input
                       className="prod-input"
                       type="text"
-                      placeholder="Name:"
                       defaultValue={productData?.name}
                       {...register("name")}
                     />
                     <div className="errors">{errors.name?.message}</div>
                   </div>
                   <div className="basis-full">
+                    <div>Description:</div>
                     <textarea
                       className="prod-input min-h-28"
-                      placeholder="Description"
                       defaultValue={productData?.description}
                       {...register("description")}
                     ></textarea>
                     <div className="errors">{errors.description?.message}</div>
                   </div>
                   <div className="basis-full">
+                    <div>Supplier:</div>
                     <input
                       className="prod-input"
                       type="text"
@@ -130,6 +157,7 @@ export const ProductEdit = () => {
                     <div className="errors">{errors.supplier?.message}</div>
                   </div>
                   <div className="basis-full">
+                    <div>Price</div>
                     <input
                       className="prod-input"
                       type="number"
@@ -140,6 +168,7 @@ export const ProductEdit = () => {
                     <div className="errors">{errors.price?.message}</div>
                   </div>
                   <div className="basis-full">
+                    <div>Stocks</div>
                     <input
                       className="prod-input"
                       type="number"

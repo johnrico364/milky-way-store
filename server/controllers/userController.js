@@ -102,8 +102,6 @@ const updateUserProfile = async (req, res) => {
   const userImg = req.file?.filename;
   const oldImg = JSON.parse(req.body.oldPic);
 
-  console.log(newUser);
-
   try {
     const oldImagePath = path.join("../client/src/images/user", oldImg);
 

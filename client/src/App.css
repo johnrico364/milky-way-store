@@ -552,7 +552,13 @@
   .user-input{
     border: 2px solid var(--secondary2);
     outline: 0;
-    @apply w-full h-10 mt-3 rounded-lg pl-2 max-sm:text-sm;
+    @apply w-full h-10 rounded-lg pl-2 max-sm:text-sm;
+  }
+
+  .errors{
+    color: red;
+    font-size: .85rem;
+    @apply mb-3;
   }
 
   .button{

@@ -82,11 +82,6 @@ export const EditUser = () => {
           <div className="md:basis-4/12 basis-full">
             <div className="p-img">
               <img
-                // src={
-                //   typeof previewUserImg === "string"
-                //     ? require(`../../images/user/${previewUserImg}`)
-                //     : previewUserImg
-                // }
                 src={
                   previewUserImg
                     ? previewUserImg.startsWith("blob:")
