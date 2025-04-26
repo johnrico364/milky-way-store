@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   FaBars,
@@ -11,10 +11,12 @@ import {
 } from "react-icons/fa6";
 import { GiMilkCarton } from "react-icons/gi";
 import axios from "axios";
+import { useGetAllCarts } from "../../hooks/order/useGetOrder";
 
 export const NavbarUser = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { getAllCarts } = useGetAllCarts();
 
   const user = JSON.parse(localStorage.getItem("user") || `{"token":"null"}`);
 
@@ -24,12 +26,17 @@ export const NavbarUser = () => {
     },
   });
 
+  const [cartsCount, set_cartsCount] = useState<number>();
+
   const checkAuthUser = async () => {
     try {
-      const user = await axiosInstance.get(`${process.env.REACT_APP_BACKEND_BASEURL}/api/user/auth-token`);
-
-      console.log(user.data.isAdmin);
+      const user = await axiosInstance.get(
+        `${process.env.REACT_APP_BACKEND_BASEURL}/api/user/auth-token`
+      );
       user.data.isAdmin && navigate("/admin/dashboard");
+
+      const carts = await getAllCarts(user.data.id);
+      set_cartsCount(carts.length);
     } catch (error: any) {
       error.response.data.mess || navigate("/login");
       console.log(error.response.data.mess);
@@ -44,17 +51,17 @@ export const NavbarUser = () => {
     {
       path: "products",
       name: "Products",
-      icon: <FaBox className="me-1" />,
+      icon: <FaBox />,
     },
     {
       path: "cart",
       name: "Cart",
-      icon: <FaCartShopping className="me-1" />,
+      icon: <FaCartShopping />,
     },
     {
       path: "profile",
       name: "Profile",
-      icon: <FaUserLarge className="me-1" />,
+      icon: <FaUserLarge />,
     },
   ];
 
@@ -100,6 +107,8 @@ export const NavbarUser = () => {
                           onClick={() => navigate(route.name.toLowerCase())}
                         >
                           {route.icon}
+                          {i === 1 && <span className="carted-count bg-[#0a0a5d]">{cartsCount}</span>}
+                          <span className="carted-count"></span>
                           {route.name}
                         </span>
                       </li>

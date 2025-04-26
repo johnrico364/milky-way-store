@@ -61,7 +61,8 @@ export const OrderProduct = () => {
 
     console.log(response?.data.message);
 
-    response?.success && navigate(`/user/${response?.data?.response}`);
+    response?.success &&
+      window.location.assign(`/user/${response?.data?.response}`);
   };
 
   return (

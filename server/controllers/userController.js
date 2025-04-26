@@ -89,7 +89,7 @@ const authUserToken = async (req, res) => {
     const userData = await User.findOne({ _id });
 
     if (_id) {
-      res.status(200).json({ mess: true, isAdmin: userData.isAdmin });
+      res.status(200).json({ mess: true, isAdmin: userData.isAdmin, id: _id });
     }
   } catch (error) {
     res.status(400).json({ mess: false });

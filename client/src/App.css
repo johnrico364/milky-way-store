@@ -302,6 +302,12 @@
     background-color: var(--primary);
     @apply ml-3 text-white rounded-lg hover:scale-110;
   }
+
+  .carted-count{
+    font-size: 10px;
+    border-radius: 12px;
+    @apply h-[1.15rem] w-[1.15rem] mb-3 text-white text-center;
+  }
 }
 
 /*============================================================== Navbar Footer ==================================================*/
