@@ -107,8 +107,14 @@ export const NavbarUser = () => {
                           onClick={() => navigate(route.name.toLowerCase())}
                         >
                           {route.icon}
-                          {i === 1 && <span className="carted-count bg-[#0a0a5d]">{cartsCount}</span>}
-                          <span className="carted-count"></span>
+                          {i === 1 ? (
+                            <span className="carted-count bg-[#0a0a5d]">
+                              {cartsCount}
+                            </span>
+                          ) : (
+                            <span className="h-[1.15rem] mb-3"></span>
+                          )}
+
                           {route.name}
                         </span>
                       </li>
