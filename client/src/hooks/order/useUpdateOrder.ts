@@ -22,7 +22,9 @@ export const useUpdateDeliveryStatus = () => {
         `${process.env.REACT_APP_BACKEND_BASEURL}/api/order/update/delivery-status`,
         { order_id }
       );
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return { updateDeliveryStatus };

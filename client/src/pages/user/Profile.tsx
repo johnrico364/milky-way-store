@@ -82,7 +82,7 @@ export const Profile = () => {
               onChange={(e) => set_queryOrderStatus(e.target.value)}
             >
               <option value={"to-approve"}>To Approve</option>
-              <option value={"to-ship"}>To Ship</option>
+              <option value={"to-recieve"}>To Recieve</option>
               <option value={"history"}>Purchase History</option>
             </select>
 
@@ -97,7 +97,10 @@ export const Profile = () => {
                 {ordersData?.map((order: any, i) => {
                   return (
                     <div key={i}>
-                      <OrderDetails data={order} />
+                      <OrderDetails
+                        data={order}
+                        toRecieve={queryOrderStatus === "to-recieve"}
+                      />
                     </div>
                   );
                 })}

@@ -82,7 +82,7 @@ export const Cart = () => {
           return (
             <div className="flex flex-wrap">
               <div className="basis-10/12 lg:px-10 mb-5">
-                <CartedProducts data={cart} />
+                <CartedProducts data={cart} toRecieve={false} />
               </div>
               <div className="basis-1/12 text-end lg:pe-5 pt-5">
                 <div

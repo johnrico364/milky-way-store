@@ -1,5 +1,6 @@
 export interface OrderDetailsProps {
   data: {
+    _id: string;
     quantity: number;
     payment: number;
     product: {
@@ -10,4 +11,5 @@ export interface OrderDetailsProps {
     };
     createdAt: string;
   };
+  toRecieve: boolean;
 }

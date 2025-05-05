@@ -59,8 +59,6 @@
 
 /* =========================== Order Details ===========================*/
 .order-card {
-  position: relative;
-  z-index: -1;
   line-height: 0.8rem;
   color: var(--secondary1);
 
@@ -92,6 +90,10 @@
   .price {
     text-align: end;
     @apply font-semibold md:text-xl text-base;
+  }
+  .recieve-button {
+    background-color: var(--primary);
+    @apply text-white h-[2rem] px-2 rounded-lg cursor-pointer hover:scale-105;
   }
 }
 
@@ -192,4 +194,3 @@
 }
 
 /* =========================== Admin Products Table ===========================*/
-
