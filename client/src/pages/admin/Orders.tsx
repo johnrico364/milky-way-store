@@ -35,11 +35,6 @@ export const Orders = () => {
     } catch (error) {}
   };
 
-  const recieveOrderFn = async (order: any) => {
-    set_ordersData(ordersData.filter((orderData: any) => orderData !== order));
-    await updateDeliveryStatus(order?._id);
-  };
-
   return (
     <div className="admin-orders-container">
       <div className="flex justify-end pe-5">
@@ -64,11 +59,8 @@ export const Orders = () => {
               <th>Quantity</th>
               <th>Total Amount</th>
               <th>Ordered</th>
-              {queryOrderStatus !== "history" ? (
-                <th>Actions</th>
-              ) : (
-                <th>Arrived</th>
-              )}
+              {queryOrderStatus === "pending" && <th>Actions</th>}
+              {queryOrderStatus === "history" && <th>Arrived</th>}
             </tr>
           </thead>
           <tbody>
@@ -113,16 +105,6 @@ export const Orders = () => {
                         }
                       >
                         Decline
-                      </button>
-                    </td>
-                  )}
-                  {queryOrderStatus === "delivery" && (
-                    <td>
-                      <button
-                        className="button"
-                        onClick={() => recieveOrderFn(order)}
-                      >
-                        Received
                       </button>
                     </td>
                   )}

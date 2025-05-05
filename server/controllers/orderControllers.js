@@ -106,13 +106,15 @@ const getUserOrderByStatus = async (req, res) => {
           ordered_by,
           isCarted: false,
           isConfirmed: false,
+          isDelivered: false,
         };
         break;
-      case "to-ship":
+      case "to-recieve":
         query = {
           ordered_by,
           isCarted: false,
           isConfirmed: true,
+          isDelivered: false,
         };
         break;
 
