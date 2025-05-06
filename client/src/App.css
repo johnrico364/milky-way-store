@@ -303,7 +303,7 @@
     @apply ml-3 text-white rounded-lg hover:scale-110;
   }
 
-  .carted-count{
+  .carted-count {
     font-size: 10px;
     border-radius: 12px;
     @apply h-[1.15rem] w-[1.15rem] mb-3 text-white text-center;
@@ -339,24 +339,22 @@
 
 /*============================================================== User Products ==================================================*/
 .product-container {
-  .search-nav {
-    display: flex;
-    height: 5vh;
-    background-color: var(--secondary1);
-
-    @apply lg:block justify-center;
-  }
   .search-bar {
     height: 5vh;
     background-color: #e2e2e2;
     border-radius: 8px;
-    letter-spacing: 1.2px;
-    padding-left: 1.7rem;
-    @apply lg:ms-40 lg:w-3/12 ms-0 w-8/12;
+    letter-spacing: 1px;
+    padding-left: 6px;
 
     &:focus {
       outline: 0;
     }
+
+  }
+  .search-button {
+    background-color: var(--primary);
+    color: white;
+    @apply h-[5vh] ml-2 mr-10 px-2 rounded-md;
   }
 
   .items-container {

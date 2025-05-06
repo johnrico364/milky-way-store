@@ -9,6 +9,7 @@ export const Product = () => {
   const navigate = useNavigate();
   const [allProducts, set_allProducts] = useState<any>([]);
   const [bannerIndex, setBannerIndex] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { getAllProducts } = useGetAllProducts();
 
@@ -28,11 +29,20 @@ export const Product = () => {
     },
   });
 
+  const handleSearch = () => {
+    if (searchQuery.trim() === "") {
+      productData.refetch();
+      return;
+    }
+
+    const filteredProducts = allProducts.filter((product: any) =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    set_allProducts(filteredProducts);
+  };
+
   return (
     <div className="product-container">
-      <div className="search-nav font-sans font-semibold">
-        <input className="search-bar" type="text" placeholder="Search" />
-      </div>
       <div className="flex justify-center">
         <img
           className="banner"
@@ -40,12 +50,32 @@ export const Product = () => {
           alt="banner"
         />
       </div>
-      {productData.isLoading && <div className="text-6xl">Loading...</div>}
+
+      <div className="search-nav font-sans flex justify-end">
+        <div className="mt-3">
+          <input
+            className="search-bar"
+            type="text"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && handleSearch()}
+          />
+          <button className="search-button" onClick={handleSearch}>
+            Search
+          </button>
+        </div>
+      </div>
+      
+      {allProducts.length === 0 && (
+        <div className="text-6xl">No products found...</div>
+      )}
 
       <div className="items-container">
         {allProducts?.map((product: any) => {
           return (
             <div
+              key={product._id}
               onClick={() =>
                 navigate(`/user/product/${product?.name}-${product?._id}`)
               }
