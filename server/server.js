@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require('cors')
+require("dotenv").config();
 
 //routes
 const userRoutes = require("./routes/user");
@@ -10,7 +11,8 @@ const orderRoutes = require("./routes/order");
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_URL,
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
