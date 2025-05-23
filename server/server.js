@@ -9,36 +9,12 @@ const productRoutes = require("./routes/product");
 const orderRoutes = require("./routes/order");
 
 const app = express();
-
-// CORS Configuration
-const allowedOrigins = [
-  "http://localhost:3000", // React default port
-  "http://localhost:5173", // Vite default port
-  process.env.CLIENT_URL, // Production client URL
-].filter(Boolean); // Remove any undefined values
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg =
-          "The CORS policy for this site does not allow access from the specified Origin.";
-        return callback(new Error(msg), false);
-      }
-      return callback(null, true);
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "X-Requested-With",
-      "Accept",
-    ],
+    origin: process.env.CLIENT_URL,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    exposedHeaders: ['Access-Control-Allow-Origin'],
     credentials: true,
-    maxAge: 86400, // 24 hours
   })
 );
 
