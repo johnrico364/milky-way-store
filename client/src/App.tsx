@@ -27,6 +27,7 @@ import { OrderProduct } from "./pages/user/OrderProduct";
 import { ProductEdit } from "./pages/admin/ProductEdit";
 import { UserTransaction } from "./pages/admin/UserTransaction";
 import { EditUser } from "./pages/user/EditUser";
+import { LandingPage } from "./pages/LandingPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to={"/login"} />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 

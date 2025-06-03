@@ -54,6 +54,50 @@
   @apply justify-center items-center;
 }
 
+/*============================================================== Landing Page ==================================================*/
+.screen1-container {
+  @apply md:h-[55rem] h-[50rem];
+  @apply md:px-[5.5rem] px-[1rem] relative min-h-screen overflow-hidden;
+
+  .login-btn {
+    background-color: #e5e3e3;
+    color: var(--primary);
+    font-size: 1.3rem;
+    @apply px-[.8rem] py-[.3rem] font-bold rounded-lg;
+
+    &:hover {
+      @apply transition ease-in-out scale-105;
+      background-color: var(--primary);
+      color: white;
+    }
+  }
+
+  .headings-text {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold mb-4;
+  }
+  .description {
+    @apply text-[0.7rem] md:text-[0.9rem] text-gray-700 max-w-md;
+  }
+}
+
+.screen2-container {
+  @apply md:h-[55rem] h-[50rem] min-h-screen overflow-y-auto;
+  @apply md:px-[5.5rem] px-[1rem];
+
+  .headings {
+    letter-spacing: 1px;
+    color: var(--primary);
+    @apply md:text-[2rem] text-[1.15rem] text-center font-semibold mt-[1rem];
+  }
+}
+
+.screen3-container {
+  @apply md:h-[55rem] min-h-screen;
+  @apply md:px-[5.5rem] px-[1rem];
+
+  
+}
+
 /*============================================================== Log in ==================================================*/
 .login-container {
   .flex {
@@ -349,7 +393,6 @@
     &:focus {
       outline: 0;
     }
-
   }
   .search-button {
     background-color: var(--primary);
