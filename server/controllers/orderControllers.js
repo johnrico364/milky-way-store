@@ -1,4 +1,5 @@
 const Order = require("../models/orderSchema");
+const Product = require("../models/productSchema");
 
 const orderProduct = async (req, res) => {
   const orderForm = await req?.body;
@@ -13,10 +14,23 @@ const orderProduct = async (req, res) => {
     });
 
     if (orderExist && orderForm?.isCarted) {
+      // Get product stock information
+      const product = await Product.findById(orderForm?.product);
+      const newQuantity = orderExist?.quantity + orderForm?.quantity;
+
+      // Check if new quantity exceeds available stock
+      if (newQuantity > product?.stocks) {
+        return res.status(400).json({ 
+          error: "Cannot add to cart. Requested quantity exceeds available stock.",
+          availableStock: product?.stocks
+        });
+      }
+
       const newOrderForm = {
-        quantity: orderExist?.quantity + orderForm?.quantity,
+        quantity: newQuantity,
         payment: orderExist?.payment + orderForm?.payment,
       };
+      
       const orderUpdate = await Order.findByIdAndUpdate(
         orderExist?._id,
         newOrderForm

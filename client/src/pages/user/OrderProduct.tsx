@@ -28,6 +28,7 @@ export const OrderProduct = () => {
   const [productData, set_productData] = useState<ProductDetails>();
   const [quantity, set_quantity] = useState<number>(1);
   const [userId, set_userId] = useState<string>("");
+  const [errorMessage, set_errorMessage] = useState<string>("");
 
   const effectprod = async () => {
     try {
@@ -59,7 +60,13 @@ export const OrderProduct = () => {
     };
     const response = await orderOneProduct(orderForm);
 
-    console.log(response?.data.message);
+    if (!response?.success) {
+      set_errorMessage(response?.data?.error);
+      const modal = document.getElementById(
+        "error_modal"
+      ) as HTMLDialogElement | null;
+      if (modal) modal.showModal();
+    }
 
     response?.success &&
       window.location.assign(`/user/${response?.data?.response}`);
@@ -158,6 +165,20 @@ export const OrderProduct = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal for error handling */}
+      <dialog id="error_modal" className="modal">
+        <div className="modal-box font-sans">
+          <form method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+          <h3 className="font-bold text-lg">Error Occured!!</h3>
+          <p className="py-4">{errorMessage}</p>
+        </div>
+      </dialog>
     </div>
   );
 };

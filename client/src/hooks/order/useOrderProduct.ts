@@ -10,8 +10,8 @@ export const useOrderProduct = () => {
 
       return { data: order?.data, success: true };
     } catch (error: any) {
-      console.log(error?.response?.data);
-      alert(error?.response?.data);
+
+      return { data: error?.response?.data, success: false };
     }
   };
 
